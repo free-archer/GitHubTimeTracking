@@ -1,5 +1,6 @@
 import React from "react";
 import IssueItem from "./IssueItem";
+import {} from '../types/issues'
 
 const IssuesList:React.FC  = () => {
 
