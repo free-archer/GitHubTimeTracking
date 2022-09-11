@@ -77,7 +77,7 @@ export interface PullRequest {
     patch_url: string;
 }
 
-export interface RootObject {
+export interface IIssueAll {
     id: number;
     node_id: string;
     url: string;
@@ -107,4 +107,13 @@ export interface RootObject {
     state_reason: string;
 }
 
+export interface IIssue {
+    id?: number;
+    url: string;
+    state?: string;
+    title: string;
+    body?: string;
+    labels?: ILabel[];
+
+}
 

@@ -10,7 +10,6 @@
 
 # production
 /build
-/dist
 
 # misc
 .DS_Store
@@ -18,14 +17,8 @@
 .env.development.local
 .env.test.local
 .env.production.local
-
-.vscode
-.idea
+.env
 
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-Cargo.lock
-/package-lock.json
-src-tauri/Cargo.toml

@@ -1,12 +1,14 @@
 import React from "react";
+import { IIssue } from "../types/issues";
 
-const IssueItem:React.FC  = () => {
+const IssueItem:React.FC<IIssue>  = (props) => {
 
   return (
-    <div className="container">
-      <h3>Issues Item</h3>
+    <>
 
-    </div>
+      <li className="">{props.title}</li>
+
+    </>
   )
 }
 
