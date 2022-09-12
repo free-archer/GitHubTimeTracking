@@ -5,8 +5,10 @@ const App:React.FC  = () => {
 
   return (
     <div className="container">
+      
       <h1>GitHub Time Tracking</h1>
       <IssuesList />
+
     </div>
   )
 }

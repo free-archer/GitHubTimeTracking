@@ -28,32 +28,36 @@ const IssuesList:React.FC  = () => {
   }
 
   return (
-<div className="columns">
-<div className="column is-four-fifths">
-<ul>
-      {issues?.map((issue: IIssue) => (
-                <IssueItem 
-                key={issue.id}
-                title={issue.title}
-                url={issue.url}
-                />
-            ))}        
-</ul>        
+    <>
+    <div className="columns">
+      <div className="column is-four-fifths">
+        
+ 
+              
       </div>
 
       <div className="column">
 
-          <button 
+        <button 
           onClick={getIssues}
-          className="button is-success">Get</button>
+          className="button is-info">Get...</button>
         </div>
 
-    <div className="column">
+      <div className="column">
 
         <KeySet gitHubKey={gitHubKey}/>
 
+      </div>
     </div>
-    </div>
+
+      {issues?.map((issue: IIssue) => (
+        <IssueItem 
+        key={issue.id}
+        title={issue.title}
+        url={issue.url}
+        />
+      ))}
+</>           
   )
 }
 
