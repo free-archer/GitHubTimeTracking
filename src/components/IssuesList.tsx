@@ -2,7 +2,7 @@ import React, { useMemo, useState } from "react";
 import IssueItem from "./IssueItem";
 import { IIssue } from '../types/issues'
 import { Octokit } from "@octokit/core";
-import { getGitHubKey } from '../lib/localstore'
+import { getGitHubKey, setIssueDB, getIssueTimeDB } from '../lib/localstore'
 import KeySet from "./KeySet";
 
 
@@ -25,6 +25,7 @@ const IssuesList:React.FC  = () => {
 
       const issuesData = await octokit.request('GET /repos/free-archer/Sibedge/issues', {})
       setIssues(state => issuesData.data)
+      setIssueDB(issuesData.data)
   }
 
   return (

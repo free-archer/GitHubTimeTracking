@@ -116,4 +116,3 @@ export interface IIssue {
     labels?: ILabel[];
 
 }
-
