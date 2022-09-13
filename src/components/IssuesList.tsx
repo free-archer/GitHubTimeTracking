@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import IssueItem from "./IssueItem";
 import { IIssue } from '../types/issues'
+import { IDBIssue } from '../types/dbissues'
 import { Octokit } from "@octokit/core";
 import { getGitHubKey, setIssuesGitHub } from '../lib/localstore'
 import KeySet from "./KeySet";
@@ -8,7 +9,7 @@ import { time } from "console";
 
 
 const IssuesList:React.FC  = () => {
-  const [issues, setIssues] = useState<Array<IIssue>>([])
+  const [issues, setIssues] = useState<Array<IDBIssue>>([])
   const [gitHubKey, setGitHubKey] = useState<string>('')
 
   useMemo(() => {
@@ -25,8 +26,9 @@ const IssuesList:React.FC  = () => {
         });
 
       const issuesData = await octokit.request('GET /repos/free-archer/Sibedge/issues', {})
-      setIssues(state => issuesData.data)
-      setIssuesGitHub(issuesData.data)
+      const dbIssues:IDBIssue[] = setIssuesGitHub(issuesData.data)
+      setIssues(state => dbIssues)
+      
   }
 
   return (
@@ -52,12 +54,13 @@ const IssuesList:React.FC  = () => {
       </div>
     </div>
 
-      {issues?.map((issue: IIssue) => (
+      {issues?.map((issue:IDBIssue) => (
         <IssueItem 
         key={issue.id}
         id={issue.id}
         title={issue.title}
         url={issue.url}
+        time={issue.time}
         />
       ))}
 </>           

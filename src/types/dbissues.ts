@@ -9,5 +9,6 @@ export interface IIssueTime {
 export interface IDBIssue {
     id: number;
     title: string;
+    url: string,
     time: IIssueTime
 }

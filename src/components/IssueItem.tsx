@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { IIssue } from "../types/issues";
+import { IDBIssue } from "../types/dbissues";
 import { setIssueTimeDB, getIssueTimeDB } from '../lib/localstore'
 import internal from "stream";
 
-const IssueItem:React.FC<IIssue>  = (props) => {
-  const [time, setTime] = useState<number>(0)
+const IssueItem:React.FC<IDBIssue>  = (props) => {
+  const [time, setTime] = useState<number>(props.time.time)
   const [intervalID, setIntervalID] = useState<NodeJS.Timer>()
   const [started, setStarted] = useState<boolean>(false)
 
@@ -41,7 +41,7 @@ const IssueItem:React.FC<IIssue>  = (props) => {
     <div className="columns">
 
       <div className="column column is-four-fifths py-1 height-min title-text ">
-        {props.id} : {props.title}
+        <a href={props.url}> {props.id} : {props.title} </a>
       </div>
 
       <div className="column py-1">
