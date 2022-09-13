@@ -61,6 +61,7 @@ const IssuesList:React.FC  = () => {
         title={issue.title}
         url={issue.url}
         time={issue.time}
+        started={issue.started}
         />
       ))}
 </>           

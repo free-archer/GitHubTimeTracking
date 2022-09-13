@@ -3,12 +3,13 @@ export interface IIssueTime {
     time: number,
     minute?: number,
     hour?: number,
-    time_string?: string 
+    time_string?: string,
 }
 
 export interface IDBIssue {
     id: number;
     title: string;
     url: string,
-    time: IIssueTime
+    time: IIssueTime,
+    started:boolean,
 }
