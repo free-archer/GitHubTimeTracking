@@ -1,11 +1,13 @@
 export interface IIssueTime {
-    date: Date,
-    time_hour: number,
-    time_string: string 
+    date?: Date,
+    time: number,
+    minute?: number,
+    hour?: number,
+    time_string?: string 
 }
 
 export interface IDBIssue {
-    id: string;
+    id: number;
     title: string;
     time: IIssueTime
 }

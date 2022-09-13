@@ -108,7 +108,7 @@ export interface IIssueAll {
 }
 
 export interface IIssue {
-    id?: number;
+    id: number;
     url: string;
     state?: string;
     title: string;
