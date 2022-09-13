@@ -5,6 +5,7 @@ import internal from "stream";
 
 const IssueItem:React.FC<IDBIssue>  = (props) => {
   const [time, setTime] = useState<number>(props.time.time)
+  // const [oldTime, setOldTime] = useState<Date>(new Date())
   const [intervalID, setIntervalID] = useState<NodeJS.Timer>()
   const [started, setStarted] = useState<boolean>(false)
 
@@ -13,47 +14,66 @@ const IssueItem:React.FC<IDBIssue>  = (props) => {
   }, [time, started])
 
   // useEffect(() => {
-  //   if (props.started) {
-  //     startTimer()
+  //   if (!started) {
+  //     setOldTime(state => (new Date()))
+
+  //     // const intervalID = Timer()
+
+  //     setIntervalID(intervalID)
+      
+  //     return clearInterval(intervalID)
+
   //   } else {
-  //     stopTimer()
+
+  //     clearInterval(intervalID)
+    
   //   }
 
-  //   return stopTimer()
-
-  // }, [])
+  // }, [started])
 
   const issue_time = getIssueTimeDB(props.id)
 
   const startTimer = () => {
+    const curTime = new Date()
+    console.log("oldTime start", curTime)
+    // setOldTime(state => curTime)    
+
+    const interval = Timer(curTime)
+
+    setIntervalID(interval)
+
     setStarted(state => true)
-
-    const intervalID = setInterval(() => {
-
-    setIntervalID(intervalID)
-      
-    setTime((state) => (state + 1))
-
-    }, 
-    1000)
-
-    return intervalID
-  }  
-
-  const stopTimer = () => {
-
-    clearInterval(intervalID)
-    
-    setStarted(state => false)
-    
   }
 
+  const stopTimer = () => {
+    setStarted(state => false)
+
+    clearInterval(intervalID)
+  }
+
+  const Timer = (oldTime:Date) => {
+    const interval = setInterval(
+      () => {
+            setTime((state) => {
+              const curTime = new Date()
+              console.log("curTime",curTime.getTime())
+              console.log("oldTime", oldTime.getTime())
+              const delta:number = curTime.getTime() - oldTime.getTime()
+              console.log("delta", delta/1000)
+              return time+delta/1000
+            })
+
+        },
+     800)
+
+    return interval
+  }  
+
+
   const parseTime = (time:number):string => {
-    // const hour:number = Math.trunc(time/60)
-    // const minute:number = Math.trunc(time/3600)
     const hours = Math.trunc(time / 3600)
     const minutes = Math.trunc(time / 60 % 60)
-    const seconds = time % 60
+    const seconds = Math.trunc(time % 60)
 
     return (`${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`)
   }
