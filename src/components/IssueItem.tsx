@@ -60,7 +60,7 @@ const IssueItem:React.FC<IDBIssue>  = (props) => {
   
     return (
     
-    <div className="columns">
+    <div className="columns _issues">
 
       <div className="column column is-four-fifths py-1 height-min title-text ">
         <a href={props.url}>{props.title} </a>
@@ -69,7 +69,7 @@ const IssueItem:React.FC<IDBIssue>  = (props) => {
       <div className="column py-1">
         {started === false
           ? <button onClick={startTimer} className="_btntimer button is-success is-focused small height-min p-2">{parseTime(time)}</button>
-          : <button onClick={stopTimer} className="_btntimer button is-danger is-focused small height-min ml-1 p-2">{parseTime(time)}</button>
+          : <button onClick={stopTimer} className="_btntimer button is-danger is-focused small height-min p-2">{parseTime(time)}</button>
         }
       </div>
 
