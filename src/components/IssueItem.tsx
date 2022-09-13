@@ -55,7 +55,7 @@ const IssueItem:React.FC<IDBIssue>  = (props) => {
     const minutes = Math.trunc(time / 60 % 60)
     const seconds = time % 60
 
-    return (`${hours}:${minutes}:${seconds}`)
+    return (`${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`)
   }
   
     return (
