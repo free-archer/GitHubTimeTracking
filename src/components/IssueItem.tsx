@@ -5,7 +5,6 @@ import internal from "stream";
 
 const IssueItem:React.FC<IDBIssue>  = (props) => {
   const [time, setTime] = useState<number>(props.time.time)
-  // const [oldTime, setOldTime] = useState<Date>(new Date())
   const [intervalID, setIntervalID] = useState<NodeJS.Timer>()
   const [started, setStarted] = useState<boolean>(false)
 
@@ -13,30 +12,10 @@ const IssueItem:React.FC<IDBIssue>  = (props) => {
     setIssueTimeDB(props.id, started, time)
   }, [time, started])
 
-  // useEffect(() => {
-  //   if (!started) {
-  //     setOldTime(state => (new Date()))
-
-  //     // const intervalID = Timer()
-
-  //     setIntervalID(intervalID)
-      
-  //     return clearInterval(intervalID)
-
-  //   } else {
-
-  //     clearInterval(intervalID)
-    
-  //   }
-
-  // }, [started])
-
   const issue_time = getIssueTimeDB(props.id)
 
   const startTimer = () => {
     const curTime = new Date()
-    console.log("oldTime start", curTime)
-    // setOldTime(state => curTime)    
 
     const interval = Timer(curTime)
 
@@ -56,10 +35,8 @@ const IssueItem:React.FC<IDBIssue>  = (props) => {
       () => {
             setTime((state) => {
               const curTime = new Date()
-              console.log("curTime",curTime.getTime())
-              console.log("oldTime", oldTime.getTime())
               const delta:number = curTime.getTime() - oldTime.getTime()
-              console.log("delta", delta/1000)
+
               return time+delta/1000
             })
 
