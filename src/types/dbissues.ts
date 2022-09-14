@@ -1,9 +1,6 @@
 export interface IIssueTime {
-    date?: Date,
+    date?: string,
     time: number,
-    minute?: number,
-    hour?: number,
-    time_string?: string,
 }
 
 export interface IDBIssue {
@@ -11,5 +8,6 @@ export interface IDBIssue {
     title: string;
     url: string,
     time: IIssueTime,
+    times?: IIssueTime[],
     started:boolean,
 }
