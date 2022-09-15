@@ -1,11 +1,9 @@
 import React, { useEffect, useMemo, useState } from "react";
 import IssueItem from "./IssueItem";
-import { IIssue } from '../types/issues'
 import { IDBIssue } from '../types/dbissues'
 import { Octokit } from "@octokit/core";
 import { getGitHubKey, setIssuesGitHub } from '../lib/localstore'
 import KeySet from "./KeySet";
-import { time } from "console";
 
 
 const IssuesList:React.FC  = () => {
@@ -60,8 +58,9 @@ const IssuesList:React.FC  = () => {
         id={issue.id}
         title={issue.title}
         url={issue.url}
-        time={issue.time}
+        times={issue.times}
         started={issue.started}
+        total={issue.total}
         />
       ))}
 </>           

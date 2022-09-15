@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { IDBIssue } from "../types/dbissues";
-import { setIssueTimeDB, getIssueTimeDB } from '../lib/localstore'
-import internal from "stream";
+import { setIssueTimeDB, toDay } from '../lib/localstore'
 
 const IssueItem:React.FC<IDBIssue>  = (props) => {
-  const [time, setTime] = useState<number>(props.time.time)
+  const [time, setTime] = useState<number>(0)
   const [intervalID, setIntervalID] = useState<NodeJS.Timer>()
   const [started, setStarted] = useState<boolean>(false)
 
+  // useEffect(() => {
+  //   setTime(state => (props.times.get(toDay()) || 0))
+  // })
+  
   useEffect(() => {
-    setIssueTimeDB(props.id, started, time)
+    if (time !== 0) {
+      setIssueTimeDB(props.id, started, time)
+    }
   }, [time, started])
-
-  const issue_time = getIssueTimeDB(props.id)
 
   const startTimer = () => {
     const curTime = new Date()

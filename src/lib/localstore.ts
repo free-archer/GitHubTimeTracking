@@ -1,4 +1,4 @@
-import { IDBIssue, IIssueTime } from '../types/dbissues'
+import { IDBIssue } from '../types/dbissues'
 import { IIssueAll } from '../types/issues'
 
 //Timer
@@ -20,67 +20,68 @@ export const clearGitHubKey = () => {
 
 const ISSUESKEY = 'USSUES'
 
-const toDay = ():string => {
+export const toDay = ():string => {
     const cur = new Date()
 
     return `${cur.getDate().toString().padStart(2, '0')}${cur.getMonth().toString().padStart(2, '0')}${cur.getFullYear().toString().padStart(2, '0')}`
 }
 
-const empty_issue:IDBIssue = {
-    id: 0,
-    title: '',
-    url: '',
-    started: false,
-    time: {
-        date: '',
-        time: 0,
-    },
-
-}
-
-export const getIssueTimeDB = (id: number):IIssueTime => {
-    const issue:IDBIssue = getIssueDBByID(id)
-    const issue_time:IIssueTime = issue.time
-    return issue_time
-}
-
-export const setIssueTimeDB = (id: number, started:boolean, time:number):void => {
-    const issue = getIssueDBByID(id)
-
-    issue.time.time = time
-    issue.started= started
-
-    const times:IIssueTime = {
-        date: toDay(),
-        time: time
-    }
-
-    if (issue.hasOwnProperty('times')) {
-        issue.times?.map((elem) => {
-            if (elem.date = times.date) {
-                return times
-            }
-
-            return elem
-        })
-    } else {
-        issue.times = [times]
-    }
-
-    setIssueDB(issue)
-
-}
-
+//GET
 export const getIssuesDB = ():IDBIssue[] => {
-    const issues:IDBIssue[] = JSON.parse(localStorage.getItem(ISSUESKEY) || JSON.stringify([empty_issue]))
+    let issues:IDBIssue[] = JSON.parse(localStorage.getItem(ISSUESKEY) || JSON.stringify([]))
+
+    issues = issues.map((issueDB) => {
+        if (issueDB !== undefined && issueDB.id !== 0 && issueDB.times) {
+            issueDB.times = new Map(Object.entries(issueDB.times));
+        } else {
+            issueDB.times = new Map()
+        }
+        
+        return issueDB
+    })
     return issues
 }
 
-export const getIssueDBByID = (id: number):IDBIssue => {
+export const getIssueDBByID = (id: number):IDBIssue|undefined => {
     const issues:IDBIssue[] = getIssuesDB()
 
     const issue:IDBIssue|undefined = findIssueByID(id, issues)
-    return issue || empty_issue
+    return issue 
+}
+
+const findIssueByID = (id:number, issues:IDBIssue[]):IDBIssue|undefined => {
+    if (!issues || issues.length == 0) {
+        return undefined
+    }
+    const issue:IDBIssue|undefined = issues.find((value) => (value.id === id))
+
+    return issue
+}
+
+export const getIssueTimeDB = (id: number, date?: string):number => {
+    const issue:IDBIssue|undefined = getIssueDBByID(id)
+
+    if (date === undefined) date = toDay()
+    
+    if (issue === undefined) return 0
+
+    const time:number|undefined = issue.times.get(date)
+    return (time === undefined ? 0 : time)
+}
+
+
+//SET
+export const setIssueTimeDB = (id: number, started:boolean, time:number, date?:string):void => {
+    const issue = getIssueDBByID(id)
+
+    if (date === undefined) date = toDay()
+
+    if (issue) {
+        issue.times.set(date, time)
+        issue.started= started
+
+        setIssueDB(issue)
+    }
 }
 
 export const setIssueDB = (issue: IDBIssue):void => {
@@ -97,11 +98,16 @@ export const setIssueDB = (issue: IDBIssue):void => {
 
         setIssuesDB(newissues)
     }
-
-
 }
 
 export const setIssuesDB = (issues:IDBIssue[]):void => {
+    let jissue = {times:{}}
+
+    issues.map((issue) => {
+        jissue = issue
+        jissue.times = Object.fromEntries(issue.times)
+    })
+
     localStorage.setItem(ISSUESKEY, JSON.stringify(issues))
 }
 
@@ -116,37 +122,28 @@ export const setIssuesGitHub = (issues_github:IIssueAll[]):IDBIssue[] => {
             title: issue_github.title,
             url: issue_github.html_url,
             started: false,
-            time: {
-                time: 0
-            },
-            times: []
+            total: 0,
+            times: new Map()
         }
+
+        newIssueDB.times.set(toDay(), 0)
         
-        const issueDB:IDBIssue = findIssueByID(issue_github.id, issuesDB)
+        const issueDB:IDBIssue|undefined = findIssueByID(issue_github.id, issuesDB)
 
-        if (issueDB.id !== 0) {
-            newIssueDB.time.time = issueDB.time.time
-            newIssueDB.started = issueDB.started
-
-            newIssueDB.times?.push({
-                date: toDay(),
-                time: issueDB.time.time
-            })
+        if (issueDB !== undefined && issueDB.id !== 0 && issueDB.times) {
+            if (issueDB.times.size) {
+                newIssueDB.times = issueDB.times    
+            } else {
+                newIssueDB.times = new Map(Object.entries(issueDB.times))
+            }
+       
+            newIssueDB.total = issueDB.total
         }
 
         newIssuesDB.push(newIssueDB)
     }
 
-    localStorage.setItem(ISSUESKEY, JSON.stringify(newIssuesDB))
+    setIssuesDB(newIssuesDB)
 
     return newIssuesDB
-}
-
-const findIssueByID = (id:number, issues:IDBIssue[]):IDBIssue => {
-    if (!issues || issues.length == 0) {
-        return empty_issue
-    }
-    const issue:IDBIssue|undefined = issues.find((value) => (value.id === id))
-
-    return issue || empty_issue
 }
