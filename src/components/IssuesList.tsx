@@ -4,11 +4,13 @@ import { IDBIssue } from '../types/dbissues'
 import { Octokit } from "@octokit/core";
 import { getGitHubKey, setIssuesGitHub } from '../lib/localstore'
 import KeySet from "./KeySet";
+import Total from "./Total";
 
 
 const IssuesList:React.FC  = () => {
   const [issues, setIssues] = useState<Array<IDBIssue>>([])
   const [gitHubKey, setGitHubKey] = useState<string>('')
+  const [total, setTotal] = useState<number>(0)
 
   useMemo(() => {
     const key:string = getGitHubKey()
@@ -26,7 +28,11 @@ const IssuesList:React.FC  = () => {
       const issuesData = await octokit.request('GET /repos/free-archer/Sibedge/issues', {})
       const dbIssues:IDBIssue[] = setIssuesGitHub(issuesData.data)
       setIssues(state => dbIssues)
-      
+
+      let sum = 0
+      dbIssues.forEach(issue => sum+=issue.curtime)
+
+      setTotal(sum)
   }
 
   return (
@@ -42,7 +48,7 @@ const IssuesList:React.FC  = () => {
 
         <button 
           onClick={getIssues}
-          className="button is-info">Get...</button>
+          className="button is-info _btntimer">Update</button>
         </div>
 
       <div className="column">
@@ -64,6 +70,8 @@ const IssuesList:React.FC  = () => {
         curtime={issue.curtime}
         />
       ))}
+
+      <Total total={total}/>
 </>           
   )
 }

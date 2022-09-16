@@ -106,7 +106,6 @@ export const setIssueTimeDB = (id: number, started:boolean, time:number, date?:s
     }
 
     issue.curtime = time
-    issue.total += time
 
     setIssueDB(issue)
 }
@@ -153,7 +152,9 @@ export const setIssuesGitHub = (issues_github:IIssueAll[]):IDBIssue[] => {
             issueDB.times?.forEach((elem) => {
                     newIssueDB.times?.push(elem)
                     newIssueDB.total += elem.time
-                    newIssueDB.curtime = elem.time
+                    if (elem.date === toDay()) {
+                        newIssueDB.curtime = elem.time
+                    }
             })
         }
 

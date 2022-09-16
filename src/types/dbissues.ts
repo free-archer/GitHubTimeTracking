@@ -10,5 +10,5 @@ export interface IDBIssue {
     times: ITime[]|undefined,
     total: number|0,
     started:boolean,
-    curtime?: number|0
+    curtime: number|0
 }
