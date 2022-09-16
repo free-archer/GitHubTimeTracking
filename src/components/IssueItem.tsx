@@ -3,12 +3,13 @@ import { IDBIssue } from "../types/dbissues";
 import { setIssueTimeDB, toDay } from '../lib/localstore'
 
 const IssueItem:React.FC<IDBIssue>  = (props) => {
-  const [time, setTime] = useState<number>(0)
+  const [time, setTime] = useState<number>(props.curtime || 0)
   const [intervalID, setIntervalID] = useState<NodeJS.Timer>()
   const [started, setStarted] = useState<boolean>(false)
 
   // useEffect(() => {
-  //   setTime(state => (props.times.get(toDay()) || 0))
+
+  //   setTime(state => (() =>( || 0))
   // })
   
   useEffect(() => {

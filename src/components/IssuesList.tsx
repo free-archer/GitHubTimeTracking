@@ -61,6 +61,7 @@ const IssuesList:React.FC  = () => {
         times={issue.times}
         started={issue.started}
         total={issue.total}
+        curtime={issue.curtime}
         />
       ))}
 </>           
