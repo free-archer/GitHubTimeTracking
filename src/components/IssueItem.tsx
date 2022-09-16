@@ -68,10 +68,13 @@ const IssueItem:React.FC<IDBIssue>  = (props) => {
       </div>
 
       <div className="column py-1">
+
         {started === false
           ? <button onClick={startTimer} className="_btntimer button is-success is-focused small height-min p-2">{parseTime(time)}</button>
           : <button onClick={stopTimer} className="_btntimer button is-danger is-focused small height-min p-2">{parseTime(time)}</button>
         }
+
+        <button className="_btntimer button is-link is-outlined small height-min p-2 ml-2">{parseTime(props.total)}</button>
       </div>
 
     </div>

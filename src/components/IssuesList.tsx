@@ -48,7 +48,7 @@ const IssuesList:React.FC  = () => {
 
         <button 
           onClick={getIssues}
-          className="button is-info _btntimer">Update</button>
+          className="button is-info _btntimer">Refresh</button>
         </div>
 
       <div className="column">
