@@ -8,7 +8,7 @@ export interface IDBIssue {
     title: string;
     url: string,
     times: ITime[]|undefined,
-    total?: number|0,
+    total: number|0,
     started:boolean,
     curtime?: number|0
 }

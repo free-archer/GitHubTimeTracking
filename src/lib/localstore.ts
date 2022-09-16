@@ -91,21 +91,22 @@ export const setIssueTimeDB = (id: number, started:boolean, time:number, date?:s
 
     if (date === undefined) date = toDay()
 
-    let oTime = getOTime(issue, date)
+    let find = false
+    issue.times = issue.times?.map((elem) => {
+        if (elem.date == date) {
+            elem.time = time
+            find = true
+        }
 
-    if (oTime) {
-        
-        issue.times = issue.times?.map((elem) => {
-            if (elem.date === oTime.date) {
-                oTime.time = time
-                return oTime
-            } else {
-                return elem
-            }
+        return elem
+    })
 
-            
-        })
+    if (!find) {
+        issue.times?.push({date: date, time: time})
     }
+
+    issue.curtime = time
+    issue.total += time
 
     setIssueDB(issue)
 }
@@ -149,15 +150,12 @@ export const setIssuesGitHub = (issues_github:IIssueAll[]):IDBIssue[] => {
         const issueDB:IDBIssue|undefined = findIssueByID(issue_github.id, issuesDB)
 
         if (issueDB !== undefined && issueDB.id !== 0 && issueDB.times) {
-            const oTime:ITime = getOTime(issueDB, toDay())
-
-            if (oTime) {
-                newIssueDB.times?.push(oTime)
-                newIssueDB.curtime = oTime.time
-            }
+            issueDB.times?.forEach((elem) => {
+                    newIssueDB.times?.push(elem)
+                    newIssueDB.total += elem.time
+                    newIssueDB.curtime = elem.time
+            })
         }
-
-        newIssueDB.times?.push({date: toDay(), time: 0})
 
         newIssuesDB.push(newIssueDB)
     }
