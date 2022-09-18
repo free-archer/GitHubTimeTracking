@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { IDBIssue } from "../types/dbissues";
 import { setIssueTimeDB, toDay } from '../lib/localstore'
+import { ILabel } from "../types/issues";
+import { CSSProperties } from "react";
 
 const IssueItem:React.FC<IDBIssue>  = (props) => {
   const [time, setTime] = useState<number>(props.curtime || 0)
@@ -58,13 +60,47 @@ const IssueItem:React.FC<IDBIssue>  = (props) => {
 
     return (`${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`)
   }
+
+  const labelColor = ():CSSProperties => {
+    const bgcolor:string = '#'+props.label?.color || '#FFF'
+
+      const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(bgcolor)
+      if (!result) {
+        return {}
+      }
+      
+      const red = parseInt(result[1], 16)
+      const green = parseInt(result[2], 16)
+      const blue = parseInt(result[3], 16)
+
+      let color = ''
+      if ( 0.299 * red + 0.587 * green + 0.114 * blue > 127.5 ) {
+        color = '#010101'
+      } else {
+        color = '#FFF'
+      }
+        
+    return {
+      color: color,
+      backgroundColor: bgcolor,
+
+    }
+  }
   
-    return (
+  return (
     
     <div className="columns _issues">
 
-      <div className="column column is-four-fifths py-1 height-min title-text ">
+      <div className="column column is-four-fifths py-1 height-min title-text mt-1" >
+
         <a href={props.url}>{props.title} </a>
+        
+        <button 
+          className="_label"
+          style={labelColor()} > 
+          {props.label?.name}
+        </button>
+
       </div>
 
       <div className="column py-1">

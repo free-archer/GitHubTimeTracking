@@ -1,5 +1,5 @@
 import { time } from 'console'
-import { IDBIssue, ITime } from '../types/dbissues'
+import { IDBIssue, ILabel, ITime } from '../types/dbissues'
 import { IIssueAll } from '../types/issues'
 
 //Timer
@@ -136,6 +136,13 @@ export const setIssuesGitHub = (issues_github:IIssueAll[]):IDBIssue[] => {
 
     for (const issue_github of issues_github) {
 
+        const label:ILabel|undefined = issue_github.labels.find(elem => (elem.color !== '#dddddd'))
+        // const labels:ILabel[] = issue_github.labels.map(elem => ({
+        //     id: elem.id,
+        //     name: elem.name,
+        //     color: elem.color
+        // }))
+
         const newIssueDB:IDBIssue = {
             id : issue_github.id,
             title: issue_github.title,
@@ -143,7 +150,8 @@ export const setIssuesGitHub = (issues_github:IIssueAll[]):IDBIssue[] => {
             started: false,
             total: 0,
             curtime: 0,
-            times: []
+            times: [],
+            label: label
         }
 
         const issueDB:IDBIssue|undefined = findIssueByID(issue_github.id, issuesDB)

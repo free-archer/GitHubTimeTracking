@@ -39,8 +39,6 @@ const IssuesList:React.FC  = () => {
     <>
     <div className="columns">
       <div className="column is-four-fifths">
-        
- 
               
       </div>
 
@@ -68,6 +66,7 @@ const IssuesList:React.FC  = () => {
         started={issue.started}
         total={issue.total}
         curtime={issue.curtime}
+        label={issue.label}
         />
       ))}
 

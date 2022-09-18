@@ -3,6 +3,12 @@ export interface ITime {
     time: number|0,
 }
 
+export interface ILabel {
+    id: number;
+    name: string;
+    color: string;
+}
+
 export interface IDBIssue {
     id: number;
     title: string;
@@ -10,5 +16,7 @@ export interface IDBIssue {
     times: ITime[]|undefined,
     total: number|0,
     started:boolean,
-    curtime: number|0
+    curtime: number|0,
+    label: ILabel|undefined
 }
+
