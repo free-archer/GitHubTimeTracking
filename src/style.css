@@ -6,6 +6,10 @@
     height: 30px;
 }
 
+/* ._issue_text {
+    width: 500px;
+} */
+
 ._btntimer {
     width: 100px;
 }
@@ -24,7 +28,7 @@
 ._label {
     border: none;
     border: 1px solid #010101;
-    border-radius: 40%;
+    border-radius: 10px;
     margin-bottom: 2px;
     padding: 2px 10px;
     color: blueviolet;

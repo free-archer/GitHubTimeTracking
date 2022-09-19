@@ -25,7 +25,11 @@ const IssuesList:React.FC  = () => {
           auth: gitHubKey,
         });
 
-      const issuesData = await octokit.request('GET /repos/free-archer/Sibedge/issues', {})
+      const issuesData = await octokit.request('GET /repos/free-archer/Sibedge/issues', {
+        sort: 'updated'
+        }
+      )
+
       const dbIssues:IDBIssue[] = setIssuesGitHub(issuesData.data)
       setIssues(state => dbIssues)
 

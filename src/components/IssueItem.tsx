@@ -93,7 +93,7 @@ const IssueItem:React.FC<IDBIssue>  = (props) => {
 
       <div className="column column is-four-fifths py-1 height-min title-text mt-1" >
 
-        <a href={props.url}>{props.title} </a>
+        <a className="_issue_text" href={props.url}>{props.title} </a>
         
         <button 
           className="_label"
