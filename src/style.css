@@ -3,7 +3,7 @@
 }
 
 .height-min {
-    height: 30px;
+    /* height: 30px; */
 }
 
 /* ._issue_text {
@@ -12,6 +12,7 @@
 
 ._btntimer {
     width: 100px;
+    height: 30px;
 }
 
 ._issues {
@@ -30,6 +31,7 @@
     border: 1px solid #010101;
     border-radius: 10px;
     margin-bottom: 2px;
+    margin-left: 10px;
     padding: 2px 10px;
     color: blueviolet;
     background-color: aqua;
