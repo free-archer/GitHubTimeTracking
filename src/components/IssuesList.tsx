@@ -1,9 +1,8 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import IssueItem from "./IssueItem";
 import { IDBIssue } from '../types/dbissues'
 import { Octokit } from "@octokit/core";
 import { getGitHubKey, setIssuesGitHub } from '../lib/localstore'
-import KeySet from "./KeySet";
 import Total from "./Total";
 
 
@@ -12,12 +11,12 @@ const IssuesList:React.FC  = () => {
   const [gitHubKey, setGitHubKey] = useState<string>('')
   const [total, setTotal] = useState<number>(0)
 
-  useMemo(() => {
+  useEffect(() => {
     const key:string = getGitHubKey()
-    setGitHubKey((state) => (state = key))
-  },
-   [gitHubKey]
-   )
+    setGitHubKey(key)
+    console.log("getGitHubKey issue")
+  }, []
+  )
 
   const getIssues = async () => {
 
@@ -53,11 +52,6 @@ const IssuesList:React.FC  = () => {
           className="button is-info _btntimer">Refresh</button>
         </div>
 
-      <div className="column">
-
-        <KeySet gitHubKey={gitHubKey}/>
-
-      </div>
     </div>
 
       {issues?.map((issue:IDBIssue) => (
