@@ -23,7 +23,17 @@ const IssuesList:React.FC  = () => {
     const user_name:string = getUserName()
     setUserName(user_name)    
 
+    // getIssues()
   }, []
+  )
+
+  useEffect(() => {
+
+    if (gitHubKey && repositoryName && userName) {
+      getIssues()
+      console.log("refrash")
+    }
+  }, [gitHubKey, repositoryName, userName]
   )
 
   const getIssues = async () => {
@@ -37,13 +47,16 @@ const IssuesList:React.FC  = () => {
         }
       )
 
-      const dbIssues:IDBIssue[] = setIssuesGitHub(issuesData.data)
-      setIssues(state => dbIssues)
+      if (issuesData.status === 200) {
 
-      let sum = 0
-      dbIssues.forEach(issue => sum+=issue.curtime)
+        const dbIssues:IDBIssue[] = setIssuesGitHub(issuesData.data)
+        setIssues(state => dbIssues)
 
-      setTotal(sum)
+        let sum = 0
+        dbIssues.forEach(issue => sum+=issue.curtime)
+
+        setTotal(sum)
+      }
   }
 
   return (
