@@ -95,11 +95,13 @@ const IssueItem:React.FC<IDBIssue>  = (props) => {
 
         <a className="_issue_text" href={props.url}>{props.title} </a>
         
-        <button 
-          className="_label"
-          style={labelColor()} > 
-          {props.label?.name}
-        </button>
+        {props.label?.name && 
+          <button 
+            className="_label"
+            style={labelColor()} > 
+            {props.label?.name}
+          </button>
+        }
 
       </div>
 

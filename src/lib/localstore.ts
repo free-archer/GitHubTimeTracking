@@ -17,6 +17,28 @@ export const clearGitHubKey = () => {
     localStorage.setItem(GITHUBKEY, '')
 }
 
+//RepositoryName
+const REPOKEY = 'REPONAME'
+
+export const saveRepositoryName = (name:string):void => {
+    localStorage.setItem(REPOKEY, name)
+}
+
+export const getRepositoryName = ():string => {
+    return localStorage.getItem(REPOKEY) || ''
+}
+
+//User name
+const USERKEY = 'USERNAME'
+
+export const saveUserName = (name:string):void => {
+    localStorage.setItem(USERKEY, name)
+}
+
+export const getUserName= ():string => {
+    return localStorage.getItem(USERKEY) || ''
+}
+
 //Issues
 
 const ISSUESKEY = 'USSUES'

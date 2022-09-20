@@ -1,13 +1,15 @@
 import React from "react";
 import IssuesList from "./IssuesList";
+import NavBar from "./NavBar";
 
 const App:React.FC  = () => {
 
   return (
     <div className="container">
+      <NavBar />
       
-      <h1>GitHub Time Tracking</h1>
-      <IssuesList />
+     
+      
 
     </div>
   )

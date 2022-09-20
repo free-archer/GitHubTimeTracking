@@ -1,23 +1,40 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import IssueItem from "./IssueItem";
 import { IDBIssue } from '../types/dbissues'
 import { Octokit } from "@octokit/core";
-import { getGitHubKey, setIssuesGitHub } from '../lib/localstore'
-import KeySet from "./KeySet";
+import { getGitHubKey, setIssuesGitHub, getRepositoryName, getUserName } from '../lib/localstore'
 import Total from "./Total";
 
 
 const IssuesList:React.FC  = () => {
   const [issues, setIssues] = useState<Array<IDBIssue>>([])
   const [gitHubKey, setGitHubKey] = useState<string>('')
+  const [repositoryName, setRepositoryName] = useState<string>('')
+  const [userName, setUserName] = useState<string>('')
   const [total, setTotal] = useState<number>(0)
 
-  useMemo(() => {
+  useEffect(() => {
     const key:string = getGitHubKey()
-    setGitHubKey((state) => (state = key))
-  },
-   [gitHubKey]
-   )
+    setGitHubKey(key)
+
+    const repo_name:string = getRepositoryName()
+    setRepositoryName(repo_name)
+
+    const user_name:string = getUserName()
+    setUserName(user_name)    
+
+    // getIssues()
+  }, []
+  )
+
+  useEffect(() => {
+
+    if (gitHubKey && repositoryName && userName) {
+      getIssues()
+      console.log("refrash")
+    }
+  }, [gitHubKey, repositoryName, userName]
+  )
 
   const getIssues = async () => {
 
@@ -25,18 +42,21 @@ const IssuesList:React.FC  = () => {
           auth: gitHubKey,
         });
 
-      const issuesData = await octokit.request('GET /repos/free-archer/Sibedge/issues', {
+      const issuesData = await octokit.request(`GET /repos/${userName}/${repositoryName}/issues`, {
         sort: 'updated'
         }
       )
 
-      const dbIssues:IDBIssue[] = setIssuesGitHub(issuesData.data)
-      setIssues(state => dbIssues)
+      if (issuesData.status === 200) {
 
-      let sum = 0
-      dbIssues.forEach(issue => sum+=issue.curtime)
+        const dbIssues:IDBIssue[] = setIssuesGitHub(issuesData.data)
+        setIssues(state => dbIssues)
 
-      setTotal(sum)
+        let sum = 0
+        dbIssues.forEach(issue => sum+=issue.curtime)
+
+        setTotal(sum)
+      }
   }
 
   return (
@@ -53,11 +73,6 @@ const IssuesList:React.FC  = () => {
           className="button is-info _btntimer">Refresh</button>
         </div>
 
-      <div className="column">
-
-        <KeySet gitHubKey={gitHubKey}/>
-
-      </div>
     </div>
 
       {issues?.map((issue:IDBIssue) => (
