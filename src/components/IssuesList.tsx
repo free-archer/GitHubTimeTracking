@@ -8,55 +8,37 @@ import Total from "./Total";
 
 const IssuesList:React.FC  = () => {
   const [issues, setIssues] = useState<Array<IDBIssue>>([])
-  const [gitHubKey, setGitHubKey] = useState<string>('')
-  const [repositoryName, setRepositoryName] = useState<string>('')
-  const [userName, setUserName] = useState<string>('')
   const [total, setTotal] = useState<number>(0)
 
   useEffect(() => {
-    const key:string = getGitHubKey()
-    setGitHubKey(key)
-
-    const repo_name:string = getRepositoryName()
-    setRepositoryName(repo_name)
-
-    const user_name:string = getUserName()
-    setUserName(user_name)    
-
-    // getIssues()
-  }, []
-  )
-
-  useEffect(() => {
-
-    if (gitHubKey && repositoryName && userName) {
       getIssues()
-      console.log("refrash")
-    }
-  }, [gitHubKey, repositoryName, userName]
+    }, []
   )
 
   const getIssues = async () => {
+    const gitHubKey:string = getGitHubKey()
+    const repositoryName:string = getRepositoryName()
+    const userName:string = getUserName()
 
-      const octokit = new Octokit({
-          auth: gitHubKey,
-        });
+    const octokit = new Octokit({
+        auth: gitHubKey,
+      });
 
-      const issuesData = await octokit.request(`GET /repos/${userName}/${repositoryName}/issues`, {
-        sort: 'updated'
-        }
-      )
-
-      if (issuesData.status === 200) {
-
-        const dbIssues:IDBIssue[] = setIssuesGitHub(issuesData.data)
-        setIssues(state => dbIssues)
-
-        let sum = 0
-        dbIssues.forEach(issue => sum+=issue.curtime)
-
-        setTotal(sum)
+    const issuesData = await octokit.request(`GET /repos/${userName}/${repositoryName}/issues`, {
+      sort: 'updated'
       }
+    )
+
+    if (issuesData.status === 200) {
+
+      const dbIssues:IDBIssue[] = setIssuesGitHub(issuesData.data)
+      setIssues(state => dbIssues)
+
+      let sum = 0
+      dbIssues.forEach(issue => sum+=issue.curtime)
+
+      setTotal(sum)
+    }
   }
 
   return (
