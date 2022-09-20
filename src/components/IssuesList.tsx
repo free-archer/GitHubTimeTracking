@@ -2,19 +2,27 @@ import React, { useEffect, useState } from "react";
 import IssueItem from "./IssueItem";
 import { IDBIssue } from '../types/dbissues'
 import { Octokit } from "@octokit/core";
-import { getGitHubKey, setIssuesGitHub } from '../lib/localstore'
+import { getGitHubKey, setIssuesGitHub, getRepositoryName, getUserName } from '../lib/localstore'
 import Total from "./Total";
 
 
 const IssuesList:React.FC  = () => {
   const [issues, setIssues] = useState<Array<IDBIssue>>([])
   const [gitHubKey, setGitHubKey] = useState<string>('')
+  const [repositoryName, setRepositoryName] = useState<string>('')
+  const [userName, setUserName] = useState<string>('')
   const [total, setTotal] = useState<number>(0)
 
   useEffect(() => {
     const key:string = getGitHubKey()
     setGitHubKey(key)
-    console.log("getGitHubKey issue")
+
+    const repo_name:string = getRepositoryName()
+    setRepositoryName(repo_name)
+
+    const user_name:string = getUserName()
+    setUserName(user_name)    
+
   }, []
   )
 
@@ -24,7 +32,7 @@ const IssuesList:React.FC  = () => {
           auth: gitHubKey,
         });
 
-      const issuesData = await octokit.request('GET /repos/free-archer/Sibedge/issues', {
+      const issuesData = await octokit.request(`GET /repos/${userName}/${repositoryName}/issues`, {
         sort: 'updated'
         }
       )

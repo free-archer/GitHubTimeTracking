@@ -6,8 +6,10 @@ const KeySet:React.FC = () => {
   const [gitHubKey, setGitHubKey] = useState<string>('')
 
   const saveKeyHandler = () => {
-    setHasKey(true)
-    saveGitHubKey(gitHubKey)
+    if (gitHubKey !== '') {
+      setHasKey(true)
+      saveGitHubKey(gitHubKey)
+    }
   }
 
   const clearGitHubKeyHandler = ()=> {
@@ -19,12 +21,12 @@ const KeySet:React.FC = () => {
   useEffect(() => {
     const key:string = getGitHubKey()
     setGitHubKey(key)
-    console.log("getGitHubKey keyset")
+    setHasKey(key !== '')
   }, []
   )
 
 return (
-  <>
+  <div className="field is-grouped">
       { !haskey && 
       <input
         onChange={(e) => {setGitHubKey(e.target.value)}} 
@@ -35,9 +37,9 @@ return (
 
       { haskey && <p className="p-3">The Key is set</p>}
         
-        <button onClick={saveKeyHandler} className="button is-danger ml-3">Save</button>
+        <button onClick={saveKeyHandler} className="button is-info ml-3">Save</button>
         <button onClick={clearGitHubKeyHandler} className="button is-danger ml-3">Clear</button>
-    </>
+    </div>
   )
 }
   

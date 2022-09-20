@@ -1,20 +1,20 @@
 import { useState } from "react";
 import KeySet from "../components/KeySet";
+import RepositorySet from "../components/RepositorySet";
+import UserSet from "../components/UserSet";
 
 const Settings:React.FC  = () => {
 
     return (
         <>
             <div className="block">
-                <div className="field is-grouped">
-                    <KeySet />
-                </div>
+                <KeySet />
             </div>
             <div className="block">
-            This text is within a <strong>second block</strong>. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis.
+                <UserSet />
             </div>
             <div className="block">
-            This text is within a <strong>third block</strong>. This block has no margin at the bottom.
+                <RepositorySet />
             </div>
         </>
     )
