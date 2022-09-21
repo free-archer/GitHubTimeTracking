@@ -158,12 +158,13 @@ export const setIssuesGitHub = (issues_github:IIssueAll[]):IDBIssue[] => {
 
     for (const issue_github of issues_github) {
 
-        const label:ILabel|undefined = issue_github.labels.find(elem => (elem.color !== '#dddddd'))
-        // const labels:ILabel[] = issue_github.labels.map(elem => ({
-        //     id: elem.id,
-        //     name: elem.name,
-        //     color: elem.color
-        // }))
+        // const label:ILabel|undefined = issue_github.labels.find(elem => (elem.color !== '#dddddd'))
+
+        const labels:ILabel[] = issue_github.labels.map(elem => ({
+            id: elem.id,
+            name: elem.name,
+            color: elem.color
+        }))
 
         const newIssueDB:IDBIssue = {
             id : issue_github.id,
@@ -173,7 +174,7 @@ export const setIssuesGitHub = (issues_github:IIssueAll[]):IDBIssue[] => {
             total: 0,
             curtime: 0,
             times: [],
-            label: label
+            labels: labels
         }
 
         const issueDB:IDBIssue|undefined = findIssueByID(issue_github.id, issuesDB)
