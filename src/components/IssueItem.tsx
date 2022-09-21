@@ -61,8 +61,8 @@ const IssueItem:React.FC<IDBIssue>  = (props) => {
     return (`${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`)
   }
 
-  const labelColor = ():CSSProperties => {
-    const bgcolor:string = '#'+props.label?.color || '#FFF'
+  const labelColor = (label_color:string):CSSProperties => {
+    const bgcolor:string = '#'+label_color || '#FFF'
 
       const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(bgcolor)
       if (!result) {
@@ -95,12 +95,13 @@ const IssueItem:React.FC<IDBIssue>  = (props) => {
 
         <a className="_issue_text" href={props.url}>{props.title} </a>
         
-        {props.label?.name && 
+        {props.labels.map((label) => (
           <button 
             className="_label"
-            style={labelColor()} > 
-            {props.label?.name}
+            style={labelColor(label.color)} > 
+            {label.name}
           </button>
+        )) 
         }
 
       </div>

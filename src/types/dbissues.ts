@@ -17,6 +17,6 @@ export interface IDBIssue {
     total: number|0,
     started:boolean,
     curtime: number|0,
-    label: ILabel|undefined
+    labels: ILabel[]
 }
 
