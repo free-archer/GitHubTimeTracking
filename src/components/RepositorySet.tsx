@@ -12,6 +12,9 @@ const RepositorySet:React.FC = () => {
 
 return (
     <div className="field is-grouped">
+
+      <label className="label p-2 mr-3">Repository: </label>
+
       <input
         value={repositoryName}
         onChange={(e) => {setRepositoryName(e.target.value)}} 
@@ -20,6 +23,7 @@ return (
         placeholder="Insert a repository name"/>
 
         <button onClick={(e) => saveRepositoryName(repositoryName)} className="button is-info ml-3">Save</button>
+        
     </div>
   )
 }

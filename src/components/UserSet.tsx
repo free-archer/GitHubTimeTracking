@@ -12,12 +12,13 @@ const UserSet:React.FC = () => {
 
 return (
     <div className="field is-grouped">
+      <label className="label p-2 mr-3">User: </label>
       <input
         value={userName}
         onChange={(e) => {setUserName(e.target.value)}} 
         className="input" 
         type="text" 
-        placeholder="Insert a repository name"/>
+        placeholder="Insert a user name"/>
 
         <button onClick={(e) => saveUserName(userName)} className="button is-info ml-3">Save</button>
     </div>
