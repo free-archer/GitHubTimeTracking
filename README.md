@@ -21,5 +21,5 @@ npm start
 Firstly get GitHub key for this app
 See https://docs.github.com/en/developers/apps/building-github-apps/authenticating-with-github-apps
 
-![My Image](./screenshots/settings.jpg)
+![My Image](./screenshots/settings.png)
 Next: Go to setting page and fill in username and repository name
