@@ -1,6 +1,3 @@
-# GitHubTimeTracking
-Time tracking apps for github writing on React ond Tauri
-
 # Stack: Tauri + React + Typescript
 
 GitHub Time Tracker is an application that allows you to register the time you spend on Issue.
@@ -23,3 +20,4 @@ See https://docs.github.com/en/developers/apps/building-github-apps/authenticati
 
 ![My Image](./screenshots/settings.png)
 Next: Go to setting page and fill in username and repository name
+
