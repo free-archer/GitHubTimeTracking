@@ -19,6 +19,11 @@ body {
     height: 30px;
 }
 
+._edittime {
+    width: 70px;
+    height: 30px;
+}
+
 ._issues {
     border: 1px solid #ddd;
 
