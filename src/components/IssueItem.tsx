@@ -97,23 +97,17 @@ const [editMode, setEditMode] = useState<boolean>(false)
     }
   }
 
-  const saveEditedTime = (value:string) => {
-    if (!value || value?.length != 5 ) {
-      console.log("Entered incorrect value")
-      return
-    }
-    const hours:string = value.slice(0, 2)
-    const minutes:string = value.slice(3, 5)
-
-    const newtime:number = +hours*3600 + +minutes*60
-  }
-  
   const editTimeHelper = () => {
     debugger
     if (!editMode) {
+      stopTimer()
+
       setEditMode(!editMode)
+
       setEditedTime(parseEditTime(time))
+
     } else {
+      
       setEditMode(!editMode)
 
       if (!editedTime || editedTime.length != 5 ) {
