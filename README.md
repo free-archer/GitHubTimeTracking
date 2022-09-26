@@ -6,6 +6,11 @@ The app show an issue list and button to start or stop the timer. Time saved in 
 
 Stack: React + Typescript
 
+## A little introduce
+
+*I want to introduce you to my project, which I have been doing lately.
+At work, I need to record the time I spend on tasks. At one time I used Bitrix24, but its functionality was too mutch for me. And the idea came to me to make a time tracker with GitHub as a backend.*
+
 ## Getting Started
 
 ```
