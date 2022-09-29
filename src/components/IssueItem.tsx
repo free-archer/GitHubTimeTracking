@@ -146,8 +146,8 @@ const [editMode, setEditMode] = useState<boolean>(false)
       <div className="column py-1">
 
         {started === false
-          ? <button onClick={startTimer} className="_btntimer button is-success is-focused small height-min p-2">{parseTime(time)}</button>
-          : <button onClick={stopTimer} className="_btntimer button is-danger is-focused small height-min p-2">{parseTime(time)}</button>
+          ? <button onClick={startTimer} className={`_btntimer button is-success ${time===0 ? 'is-outlined': ''} small height-min p-2`}>{parseTime(time)}</button>
+          : <button onClick={stopTimer} className="_btntimer button is-danger small height-min p-2">{parseTime(time)}</button>
         }
 
         <img className="ml-2" src={editMode ? saveImg : editImg} onClick={editTimeHelper}></img>
