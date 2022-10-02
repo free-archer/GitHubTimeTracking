@@ -5,13 +5,13 @@ import NavBar from "./NavBar";
 const App:React.FC  = () => {
 
   return (
-    <div className="container">
+    // <div className="container-xl ">
       <NavBar />
       
      
       
 
-    </div>
+    // </div>
   )
 }
 
