@@ -5,7 +5,7 @@ import Settings from '../pages/Settings';
 const NavBar:React.FC  = () => {
 
     return (
-        <>
+        <>    
         <nav className="navbar is-info mb-5" role="navigation" aria-label="main navigation">
             <div className="navbar-menu">
                 <div className="navbar-start">
