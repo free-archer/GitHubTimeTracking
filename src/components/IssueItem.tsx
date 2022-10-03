@@ -124,7 +124,7 @@ const IssueItem: React.FC<IDBIssue> = (props) => {
   }
 
   return (
-    <div className="flex flex-row ml-3 border-b text-gray-800">
+    <div className="flex flex-row border-b text-gray-800">
 
       <div className="basis-5/6 py-1 mt-1" >
 
@@ -142,7 +142,7 @@ const IssueItem: React.FC<IDBIssue> = (props) => {
         </div>
       </div>
 
-      <div className="basis-1/5 flex flex-row items-center">
+      <div className="basis-1/6 flex flex-row items-center">
 
         {started === false
           ? <div onClick={startTimer} 
