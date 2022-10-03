@@ -124,18 +124,18 @@ const IssueItem: React.FC<IDBIssue> = (props) => {
   }
 
   return (
-    <div className="flex flex-row border-b text-gray-800">
+    <div className="flex flex-row border-b text-gray-800 h-10 items-center">
 
-      <div className="basis-5/6 py-1 mt-1" >
+      <div className="basis-5/6" >
 
-        <div className="inline-flex flex-wrap pb-2 ">
+        <div className="inline-flex flex-wrap items-center">
           <a className="block" href={props.url}>{props.title} </a>
 
           {props.labels.map((label) => (
             <div
-              className="inline-block border-solid border border-gray-800 rounded-full mx-1 px-1"
+              className="flex border-solid border border-gray-800 rounded-full mx-1 px-2 text-xs"
               style={labelColor(label.color)} >
-              {label.name}
+              <span className="">{label.name}</span>
             </div>
           ))
           }
@@ -146,12 +146,12 @@ const IssueItem: React.FC<IDBIssue> = (props) => {
 
         {started === false
           ? <div onClick={startTimer} 
-              className={`h-8 w-18 ml-3 border-green-300 border px-2 rounded ${time !== 0 ? 'bg-green-300' : ''}`}> 
-              <span className="align-middle"> {parseTime(time)} </span>
+              className={`w-18 h-8 ml-3 border-green-300 border px-2 rounded flex items-center " ${time !== 0 ? ' bg-green-300' : ''}`}> 
+                <div className="flex">  {parseTime(time)} </div>
           </div>
           : <div onClick={stopTimer} 
-              className="h-8 w-18 ml-3 border-red-400 border rounded bg-red-400 px-2"> 
-              <span className="align-middle"> {parseTime(time)} </span>
+              className="h-8 w-18 ml-3 border-red-400 border rounded bg-red-400 px-2 flex items-center"> 
+               <div className="flex"> {parseTime(time)} </div>
           </div>
         }
 
@@ -159,11 +159,11 @@ const IssueItem: React.FC<IDBIssue> = (props) => {
 
         <div className="flex items-center mx-2" onClick={editTimeHelper}>
           {editMode ?
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-8 flex">
             <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
           </svg>
           :
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-8 flex">
             <path d="M21.731 2.269a2.625 2.625 0 00-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 000-3.712zM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 00-1.32 2.214l-.8 2.685a.75.75 0 00.933.933l2.685-.8a5.25 5.25 0 002.214-1.32l8.4-8.4z" />
             <path d="M5.25 5.25a3 3 0 00-3 3v10.5a3 3 0 003 3h10.5a3 3 0 003-3V13.5a.75.75 0 00-1.5 0v5.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5V8.25a1.5 1.5 0 011.5-1.5h5.25a.75.75 0 000-1.5H5.25z" />
           </svg>
