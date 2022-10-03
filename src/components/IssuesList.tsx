@@ -42,12 +42,8 @@ const IssuesList:React.FC  = () => {
   }
 
   return (
-    <>
-    <div className="columns">
-      <div className="column is-four-fifths">
-              
-      </div>
-
+    <div className="flex flex-col items-center justify-center">
+    {/* <div className="">
       <div className="column">
 
         <button 
@@ -55,7 +51,8 @@ const IssuesList:React.FC  = () => {
           className="button is-info _btntimer">Refresh</button>
         </div>
 
-    </div>
+    </div> */}
+<div className="container ">
 
       {issues?.map((issue:IDBIssue) => (
         <IssueItem 
@@ -72,7 +69,8 @@ const IssuesList:React.FC  = () => {
       ))}
 
       <Total total={total}/>
-</>           
+</div>     
+</div>      
   )
 }
 
