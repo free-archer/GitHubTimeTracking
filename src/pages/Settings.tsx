@@ -6,7 +6,7 @@ import UserSet from "../components/UserSet";
 const Settings:React.FC  = () => {
 
     return (
-        <>
+        <div className="bg-gray-200 ">
             <div className="block">
                 <KeySet />
             </div>
@@ -16,7 +16,7 @@ const Settings:React.FC  = () => {
             <div className="block">
                 <RepositorySet />
             </div>
-        </>
+        </div>
     )
 }
 
