@@ -6,15 +6,15 @@ const NavBar:React.FC  = () => {
 
     return (
         <>    
-        <nav className="container-xl flex flex-row bg-sky-900 text-gray-100 text-xl p-5 w-full h-20 items-center">
+        <nav className="nav">
                
-            <Link to={"/"} className="ml-10 hover:text-blue-300 hover:border-b-2 hover:border-solid hover:border-blue-300 active:border-b-2 active:border-solid active:border-blue-300 ">
+            <Link to={"/"} className="menu-link ">
                 GitHub Time Tracking
             </Link>
 
             <div className="grow"></div>
 
-            <Link to={"/settings"} className="mr-10 hover:text-blue-300 hover:border-b-2 hover:border-solid hover:border-blue-300 active:border-b-2 active:border-solid active:border-blue-300 ">
+            <Link to={"/settings"} className="menu-link mr-10 hover:text-blue-300 hover:border-b-2 hover:border-solid hover:border-blue-300 active:border-b-2 active:border-solid active:border-blue-300 ">
                 Settings
             </Link>
         </nav>

@@ -124,16 +124,16 @@ const IssueItem: React.FC<IDBIssue> = (props) => {
   }
 
   return (
-    <div className="flex flex-row border-b text-gray-800 h-10 items-center">
 
-      <div className="basis-5/6" >
+<div className="issue-contaner">
+      <div className="issue-block basis-5/6" >
 
-        <div className="inline-flex flex-wrap items-center">
-          <a className="block" href={props.url}>{props.title} </a>
+        <div className="isuue">
+          <a className="issue-link" href={props.url}>{props.title} </a>
 
           {props.labels.map((label) => (
             <div
-              className="flex border-solid border border-gray-800 rounded-full mx-1 px-2 text-xs"
+              className="label flex border-solid border border-gray-800 rounded-full mx-1 px-2 text-xs"
               style={labelColor(label.color)} >
               <span className="">{label.name}</span>
             </div>
@@ -142,7 +142,7 @@ const IssueItem: React.FC<IDBIssue> = (props) => {
         </div>
       </div>
 
-      <div className="basis-1/6 flex flex-row items-center">
+      <div className="timer-block basis-1/6 flex flex-row items-center">
 
         {started === false
           ? <div onClick={startTimer} 
@@ -182,7 +182,7 @@ const IssueItem: React.FC<IDBIssue> = (props) => {
         
       </div>
 
-    </div>
+</div>
 
   )
 }
