@@ -5,13 +5,7 @@ import NavBar from "./NavBar";
 const App:React.FC  = () => {
 
   return (
-    <div className="container">
       <NavBar />
-      
-     
-      
-
-    </div>
   )
 }
 

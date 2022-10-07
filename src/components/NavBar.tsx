@@ -1,31 +1,41 @@
-import {Routes, Route, Link} from 'react-router-dom'
+import { Navbar } from 'flowbite-react';
+import { Routes, Route, Link } from 'react-router-dom'
 import Main from '../pages/Main';
 import Settings from '../pages/Settings';
+const logo = require('../lib/img/GitHub-Mark-32px.png')
 
-const NavBar:React.FC  = () => {
+const NavBar: React.FC = () => {
 
     return (
-        <>
-        <nav className="navbar is-info mb-5" role="navigation" aria-label="main navigation">
-            <div className="navbar-menu">
-                <div className="navbar-start">
-                
-                    <Link to={"/"} className="navbar-item">
+<>
+            <Navbar
+                fluid={true}
+                rounded={true}
+                color={"#FDF2F2"}
+            >
+            {/* <div className="bg-slate-600">                 */}
+                <Link to={"/"} className="navbar-item">
+                    <div className='flex items-center'>
+                        <img
+                            src={logo}
+                            className="mr-3 h-6 sm:h-9"
+                            alt="Flowbite Logo"
+                        />
                         GitHub Time Tracking
-                    </Link>
+                    </div>
+                </Link>
 
-                    <Link to={"/settings"} className="navbar-item">
-                        Settings
-                    </Link>
-                </div>
-            </div>
-        </nav>
+                <Link to={"/settings"} >
+                    Settings
+                </Link>
+                {/* </div> */}
+            </Navbar>
 
-        <Routes>
-            <Route path="/" element={<Main />} />
-            <Route path="/settings" element={<Settings />} />
-        </Routes>
-        </>
+            <Routes>
+                <Route path="/" element={<Main />} />
+                <Route path="/settings" element={<Settings />} />
+            </Routes>
+</>
     )
 }
 
