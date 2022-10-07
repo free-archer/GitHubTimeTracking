@@ -56,7 +56,8 @@ const IssuesList:React.FC  = () => {
         </div>
 
     </div>
-
+    <div className="issue-contaner columns is-centered">
+    <div className="column">
       {issues?.map((issue:IDBIssue) => (
         <IssueItem 
         key={issue.id}
@@ -71,8 +72,11 @@ const IssuesList:React.FC  = () => {
         />
       ))}
 
+
       <Total total={total}/>
-</>           
+      </div>
+</div>           
+</>
   )
 }
 

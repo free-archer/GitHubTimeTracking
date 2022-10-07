@@ -5,7 +5,7 @@ import Settings from '../pages/Settings';
 const NavBar:React.FC  = () => {
 
     return (
-        <>
+    <div className="">
         <nav className="navbar is-info mb-5" role="navigation" aria-label="main navigation">
             <div className="navbar-menu">
                 <div className="navbar-start">
@@ -25,7 +25,7 @@ const NavBar:React.FC  = () => {
             <Route path="/" element={<Main />} />
             <Route path="/settings" element={<Settings />} />
         </Routes>
-        </>
+    </div>
     )
 }
 

@@ -1,7 +1,9 @@
 body {
     background-color: #f6f8fa;
 }
-
+.issue-contaner {
+    width: 80%;
+}
 .title-text {
     overflow:hidden;
 }

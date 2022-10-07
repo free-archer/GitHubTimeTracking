@@ -125,7 +125,6 @@ const [editMode, setEditMode] = useState<boolean>(false)
   }
     
   return (
-    
     <div className="columns _issues">
 
       <div className="column column is-four-fifths py-1 height-min title-text mt-1" >
@@ -164,7 +163,6 @@ const [editMode, setEditMode] = useState<boolean>(false)
       </div>
 
     </div>
-    
   )
 }
 
