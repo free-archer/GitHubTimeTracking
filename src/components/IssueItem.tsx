@@ -124,7 +124,7 @@ const IssueItem: React.FC<IDBIssue> = (props) => {
   }
 
   return (
-    <div className="flex flex-row border-b text-gray-800 h-10 items-center">
+    <div className="flex flex-row border-b py-1 text-gray-600 items-center">
 
       <div className="basis-5/6" >
 
@@ -133,7 +133,7 @@ const IssueItem: React.FC<IDBIssue> = (props) => {
 
           {props.labels.map((label) => (
             <div
-              className="flex border-solid border border-gray-800 rounded-full mx-1 px-2 text-xs"
+              className="flex border-solid border border-gray-800 rounded-full mx-1 px-2 py-1 text-xs"
               style={labelColor(label.color)} >
               <span className="">{label.name}</span>
             </div>
@@ -146,11 +146,15 @@ const IssueItem: React.FC<IDBIssue> = (props) => {
 
         {started === false
           ? <div onClick={startTimer} 
-              className={`w-18 h-8 ml-3 border-green-300 border px-2 rounded flex items-center ${time !== 0 ? ' bg-green-300' : ''}`}> 
+              className={`w-18 h-8 ml-3 border-green-500 border px-4 rounded flex items-center  ${time !== 0 ? ' bg-green-500 text-white '  : ' text-green-400 '}
+              hover:border-red-600 
+              `}
+              
+              > 
                 <div className="flex cursor-pointer">  {parseTime(time)} </div>
           </div>
           : <div onClick={stopTimer} 
-              className="h-8 w-18 ml-3 border-red-400 border rounded bg-red-400 px-2 flex items-center"> 
+              className="h-8 w-18 ml-3 border-red-600 border rounded bg-[#B2384F] text-[#e6e3d4] px-4 flex items-center"> 
                <div className="flex cursor-pointer"> {parseTime(time)} </div>
           </div>
         }
@@ -174,7 +178,7 @@ const IssueItem: React.FC<IDBIssue> = (props) => {
           <input
             value={editedTime}
             onChange={(e) => { setEditedTime(e.target.value) }}
-            className="h-8 w-16 border-red-500 border-solid border text-center"
+            className="h-8 w-20 border-[#B2384F] border-solid border text-center bg-gray-100"
             type="text"
             placeholder="00:00"
           />

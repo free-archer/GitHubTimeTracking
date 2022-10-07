@@ -52,12 +52,12 @@ const IssuesList: React.FC = () => {
         </div>
 
     </div> */}
-      <div className="container ">
-        <div className="flex flex-row-reverse bg-gray-300 h-22 border-b text-gray-800 h-10 items-center">
+      <div className="container border text-gray-800">
+        <div className="flex flex-row-reverse bg-[#c3dbf5] h-22 border-b text-gray-800 h-10 items-center">
 
           <button
             onClick={getIssues}
-            className="flex flex-row items-center mx-2 w-32 h-8 bg-blue-700 border-blue-800 text-white border px-2 rounded-md ">
+            className="flex flex-row items-center mx-2 w-32 h-8 bg-[#B2384F] border-blue-800 text-[#e6e3d4] border px-2 rounded-md ">
 
           <svg className="w-4 h-4 mx-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" >
             <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
