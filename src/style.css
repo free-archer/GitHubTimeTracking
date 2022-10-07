@@ -103,10 +103,11 @@ button {
 .issue-block {
     display: flex;
     flex-direction: row;
-    flex-grow: 5;
+    flex-grow: 3;
     background: green;
     flex-wrap: wrap;
-    flex-basis: 70%;
+    flex-basis: 60%;
+    flex-shrink: 0;
   
 
 }
@@ -147,4 +148,9 @@ button {
 
 .total-time {
     flex-grow: 1;
+}
+
+svg {
+    height: 20px;
+
 }
