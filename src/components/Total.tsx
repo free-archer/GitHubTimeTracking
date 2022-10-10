@@ -14,15 +14,15 @@ const Total:React.FC<props> = (props) => {
   
     return (
     
-    <div className="columns _issues has-text-weight-bold has-text-link">
+    <div className="flex flex-row font-bold ">
 
-      <div className="column column is-four-fifths py-1 height-min title-text ">
+      <div className="basis-5/6">
         <span className="_total">Total this day</span>
       </div>
 
-      <div className="column py-1">
+      <div className="basis-1/6 py-1">
         <div className="">
-            <span className="p-2 px-4 _total">{parseTime(props.total)}</span>
+            <span className="p-2 px-4 ml-2 align-middle">{parseTime(props.total)}</span>
         </div>
       </div>
 

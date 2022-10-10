@@ -11,16 +11,16 @@ const UserSet:React.FC = () => {
   )
 
 return (
-    <div className="field is-grouped">
-      <label className="label p-2 mr-3">User: </label>
+    <div className="flex flex-row bg-gray-200 items-center h-16 text-xl ml-5">
+      <label className="p-2 mr-3">User: </label>
       <input
         value={userName}
         onChange={(e) => {setUserName(e.target.value)}} 
-        className="input" 
+        className="ml-5 px-3 rounded border border-gray-400 focus:bg-red-50" 
         type="text" 
         placeholder="Insert a user name"/>
 
-        <button onClick={(e) => saveUserName(userName)} className="button is-info ml-3">Save</button>
+        <button onClick={(e) => saveUserName(userName)} className="border-green-800 border ml-10 px-3 rounded-xl bg-green-500 text-white hover:bg-green-400">Save</button>
     </div>
   )
 }
