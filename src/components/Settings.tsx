@@ -21,19 +21,12 @@ const Settings: React.FC = () => {
     }, []
     )
 
-    const saveKeyHandler = () => {
-        if (gitHubKey !== '') {
-            setHasKey(true)
-            saveGitHubKey(gitHubKey)
-        }
-    }
-
     const saveSettingsHandler = () => {
         if (gitHubKey !== '') {
             setHasKey(true)
             saveGitHubKey(gitHubKey)
         }
-    }    
+    }
 
     const clearGitHubKeyHandler = () => {
         setHasKey(false)
@@ -42,51 +35,57 @@ const Settings: React.FC = () => {
     }
 
     return (
-        <div className="bg-gray-200 flex flex-col">
-            <div className="flex flex-row items-center h-16 text-xl ml-5">
+        <div className="bg-gray-200 flex flex-row w-100">
+            <div className="basis-48 ">
+                <label className="flex h-10 p-2 mr-3">Key: </label>
+                <label className="flex p-2 mr-3">User: </label>
+                <label className="flex p-2 mr-3">Repository: </label>
+            </div>
 
-                <label className="p-2 mr-3">Key: </label>
+            <div className="basis-80 ">
+                <div className="flex items-center h-10">
 
-                {!haskey &&
+                    {!haskey &&
+                        <input
+                            onChange={(e) => { setGitHubKey(e.target.value) }}
+                            className="rounded border border-gray-400 focus:bg-red-50"
+                            type="text"
+                            placeholder="Insert an app key" />
+                    }
+
+                    {haskey && <p className="">The Key is set</p>}
+
+                </div>
+
+                <div className="flex items-center h-10">
+
                     <input
-                        onChange={(e) => { setGitHubKey(e.target.value) }}
-                        className="px-3 rounded border border-gray-400 focus:bg-red-50"
+                        value={userName}
+                        onChange={(e) => { setUserName(e.target.value) }}
+                        className="rounded border border-gray-400 focus:bg-red-50"
                         type="text"
-                        placeholder="Insert an app key" />
-                }
+                        placeholder="Insert a user name" />
+                </div>
 
-                {haskey && <p className="">The Key is set</p>}
+                <div className="flex items-center h-10">
+                    <input
+                        value={repositoryName}
+                        onChange={(e) => { setRepositoryName(e.target.value) }}
+                        className="rounded border border-gray-400 focus:bg-red-50"
+                        type="text"
+                        placeholder="Insert a repository name" />
+                </div>
 
-                <button onClick={clearGitHubKeyHandler} className="ml-5 px-3 border-gray-400 border rounded-xl bg-red-500 text-white hover:bg-red-400">Clear</button>
             </div>
 
-            <div className="flex flex-row bg-gray-200 items-center h-16 text-xl ml-5">
-                <label className="p-2 mr-3">User: </label>
-                <input
-                    value={userName}
-                    onChange={(e) => { setUserName(e.target.value) }}
-                    className="ml-5 px-3 rounded border border-gray-400 focus:bg-red-50"
-                    type="text"
-                    placeholder="Insert a user name" />
+            <div className="basis-20 ">
+                <button onClick={clearGitHubKeyHandler} className="items-center h-10 px-3 border-gray-400 border rounded-xl bg-red-500 text-white hover:bg-red-400">Clear</button>
+                <div className="flex items-center h-10"></div>
+                <div className="flex items-center h-10"></div>
+                <button onClick={saveSettingsHandler} className="items-center h-10 px-8 border-gray-400 border mb-5 rounded-xl bg-green-500 text-white hover:bg-green-400">Save</button>
             </div>
-
-            <div className="flex flex-row bg-gray-200 items-center h-16 text-xl ml-5">
-
-                <label className="p-2 mr-3">Repository: </label>
-
-                <input
-                    value={repositoryName}
-                    onChange={(e) => { setRepositoryName(e.target.value) }}
-                    className="px-3 rounded border border-gray-400 focus:bg-red-50"
-                    type="text"
-                    placeholder="Insert a repository name" />
-            </div>
-
-            <button onClick={saveKeyHandler} className="border-gray-400 border ml-10 mb-5 px-3 rounded-xl bg-green-500 text-white hover:bg-green-400">Save</button>            
 
         </div>
-
-
     )
 }
 
