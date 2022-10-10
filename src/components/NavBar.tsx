@@ -1,6 +1,6 @@
 import {Routes, Route, Link} from 'react-router-dom'
 import Main from '../pages/Main';
-import Settings from '../pages/Settings';
+import SettingsPage from '../pages/SettingsPage';
 const logo = require('../lib/img/GitHub-Mark-32px.png')
 
 const NavBar:React.FC  = () => {
@@ -26,7 +26,7 @@ const NavBar:React.FC  = () => {
 
         <Routes>
             <Route path="/" element={<Main />} />
-            <Route path="/settings" element={<Settings />} />
+            <Route path="/settings" element={<SettingsPage />} />
         </Routes>
         </>
     )
