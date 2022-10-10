@@ -1,6 +1,6 @@
-import { time } from 'console'
 import { IDBIssue, ILabel, ITime } from '../types/dbissues'
 import { IIssueAll } from '../types/issues'
+import { ISettings } from '../types/settings'
 
 //Timer
 const GITHUBKEY = 'GITHUBKEY'
@@ -37,6 +37,24 @@ export const saveUserName = (name:string):void => {
 
 export const getUserName= ():string => {
     return localStorage.getItem(USERKEY) || ''
+}
+
+export const saveSettings= (settings:ISettings):void => {
+    saveUserName(settings.username)
+    saveRepositoryName(settings.reponame)
+    saveGitHubKey(settings.key)
+}
+
+export const getSettings= ():ISettings => {
+    const username = getUserName()
+    const reponame = getRepositoryName()
+    const key = getGitHubKey()
+
+    return {
+        key: key,
+        username: username,
+        reponame: reponame,
+    }
 }
 
 //Issues

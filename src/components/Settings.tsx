@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { saveGitHubKey, clearGitHubKey, getGitHubKey, getUserName, getRepositoryName } from '../lib/localstore'
+import { clearGitHubKey, saveSettings, getSettings } from '../lib/localstore'
+import { ISettings } from '../types/settings'
 
 const Settings: React.FC = () => {
     const [haskey, setHasKey] = useState<boolean>(false)
@@ -8,24 +9,27 @@ const Settings: React.FC = () => {
     const [repositoryName, setRepositoryName] = useState<string>('')
 
     useEffect(() => {
-        const key: string = getGitHubKey()
-        setGitHubKey(key)
-        setHasKey(key !== '')
+        const settings:ISettings = getSettings()
 
-        const user_name: string = getUserName()
-        setUserName(user_name)
+        setGitHubKey(settings.key)
+        setHasKey(settings.key !== '')
 
-        const repo_name: string = getRepositoryName()
-        setRepositoryName(repo_name)
-
+        setUserName(settings.username)
+        setRepositoryName(settings.reponame)
     }, []
     )
 
     const saveSettingsHandler = () => {
         if (gitHubKey !== '') {
             setHasKey(true)
-            saveGitHubKey(gitHubKey)
         }
+        const settings:ISettings = {
+            key: gitHubKey,
+            username: userName,
+            reponame: repositoryName
+        }
+
+        saveSettings(settings)
     }
 
     const clearGitHubKeyHandler = () => {
@@ -37,13 +41,13 @@ const Settings: React.FC = () => {
     return (
         <div className="bg-gray-200 flex flex-row w-100">
             <div className="basis-48 ">
-                <label className="flex h-10 p-2 mr-3">Key: </label>
+                <label className="flex h-8 p-2 mr-3">Key: </label>
                 <label className="flex p-2 mr-3">User: </label>
                 <label className="flex p-2 mr-3">Repository: </label>
             </div>
 
             <div className="basis-80 ">
-                <div className="flex items-center h-10">
+                <div className="flex items-center h-8">
 
                     {!haskey &&
                         <input
@@ -57,7 +61,7 @@ const Settings: React.FC = () => {
 
                 </div>
 
-                <div className="flex items-center h-10">
+                <div className="flex items-center h-8">
 
                     <input
                         value={userName}
@@ -67,7 +71,7 @@ const Settings: React.FC = () => {
                         placeholder="Insert a user name" />
                 </div>
 
-                <div className="flex items-center h-10">
+                <div className="flex items-center h-8">
                     <input
                         value={repositoryName}
                         onChange={(e) => { setRepositoryName(e.target.value) }}
@@ -78,11 +82,11 @@ const Settings: React.FC = () => {
 
             </div>
 
-            <div className="basis-20 ">
-                <button onClick={clearGitHubKeyHandler} className="items-center h-10 px-3 border-gray-400 border rounded-xl bg-red-500 text-white hover:bg-red-400">Clear</button>
-                <div className="flex items-center h-10"></div>
-                <div className="flex items-center h-10"></div>
-                <button onClick={saveSettingsHandler} className="items-center h-10 px-8 border-gray-400 border mb-5 rounded-xl bg-green-500 text-white hover:bg-green-400">Save</button>
+            <div className="basis-20">
+                <button onClick={clearGitHubKeyHandler} className="flex h-8 px-3 border-gray-400 border rounded-xl bg-red-500 text-white hover:bg-red-400">Clear key</button>
+                <div className="flex h-8"></div>
+                <div className="flex h-8"></div>
+                <button onClick={saveSettingsHandler} className="h-8 px-8 border-gray-400 border mb-5 rounded-xl bg-green-500 text-white hover:bg-green-400">Save</button>
             </div>
 
         </div>
