@@ -3,6 +3,9 @@ import { IDBIssue } from "../types/dbissues";
 import { setIssueTimeDB, toDay } from '../lib/localstore'
 import { CSSProperties } from "react";
 
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+
 const editImg = require('../lib/img/Pencil-icon16.png')
 const saveImg = require('../lib/img/Save-icon16.png')
 
@@ -63,6 +66,13 @@ const IssueItem: React.FC<IDBIssue> = (props) => {
     const seconds = Math.trunc(time % 60)
 
     return (`${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`)
+  }
+  const parseMinutes = (time: number): string => {
+    const hours = Math.trunc(time / 3600)
+    const minutes = Math.trunc(time / 60 % 60)
+    const seconds = Math.trunc(time % 60)
+
+    return (`${minutes.toString().padStart(2, '0')}`)
   }
 
   const parseEditTime = (time: number): string => {
@@ -159,7 +169,16 @@ const IssueItem: React.FC<IDBIssue> = (props) => {
           </div>
         }
 
-
+        <div>
+          <CircularProgressbar value={Math.trunc(time / 60 % 60)} maxValue={45} text={parseMinutes(time)} 
+          className={`${started ? 'h-10' : 'h-8'}`}
+          // styles={buildStyles({
+          //   // textColor:'green',
+          //   pathColor: '#555',
+            
+          // })}
+          />
+        </div>
 
         <div className="flex items-center mx-2 cursor-pointer" onClick={editTimeHelper}>
           {editMode ?

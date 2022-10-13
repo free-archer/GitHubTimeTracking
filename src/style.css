@@ -5,15 +5,8 @@
 body {
     background-color: #f6f8fa;
     /* background-color: #F0FDFE; */
-
-
     /* background: RGB(193 218 244);
     background: linear-gradient(90deg, rgba(193, 218, 244,1) 0%, RGB(243, 255, 255,1) 100%);     */
-
-
-
-
-
     /* color: #f3ffff; */
 }
 /* #B2384F
@@ -22,34 +15,3 @@ body {
 #c3dbf5
 #8591AB */
 /* text #61697d */
-
-/*
-.title-text {
-    overflow:hidden;
-}
-
-._btntimer {
-    width: 100px;
-    height: 30px;
-}
-
-._edittime {
-    width: 70px;
-    height: 30px;
-}
-
-._issues {
-    border: 1px solid #ddd;
-
-}
-
-._label {
-    border: none;
-    border: 1px solid #010101;
-    border-radius: 10px;
-    margin-bottom: 2px;
-    margin-left: 10px;
-    padding: 2px 10px;
-    color: blueviolet;
-    background-color: aqua;
-} */
