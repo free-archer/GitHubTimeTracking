@@ -64,6 +64,13 @@ const IssueItem: React.FC<IDBIssue> = (props) => {
 
     return (`${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`)
   }
+  const parseMinutes = (time: number): string => {
+    const hours = Math.trunc(time / 3600)
+    const minutes = Math.trunc(time / 60 % 60)
+    const seconds = Math.trunc(time % 60)
+
+    return (`${minutes.toString().padStart(2, '0')}`)
+  }
 
   const parseEditTime = (time: number): string => {
     const sTime = parseTime(time)
@@ -158,8 +165,6 @@ const IssueItem: React.FC<IDBIssue> = (props) => {
                <div className="flex cursor-pointer"> {parseTime(time)} </div>
           </div>
         }
-
-
 
         <div className="flex items-center mx-2 cursor-pointer" onClick={editTimeHelper}>
           {editMode ?
