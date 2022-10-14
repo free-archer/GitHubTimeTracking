@@ -83,8 +83,8 @@ const IssuesList: React.FC = () => {
 
       </div>
 
-      <div className="flex w-[100px]">
-            <PomodoroTimer2 />
+      <div className="flex w-[100px] ml-5 mt-10">
+            <PomodoroTimer />
       </div>
 
     </div>
