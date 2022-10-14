@@ -9,6 +9,8 @@ const PomodoroTimer: React.FC = () => {
     const [minutes, setMinutes] = useState<number>(0)
     const [intervalID, setIntervalID] = useState<NodeJS.Timer>()
     const [started, setStarted] = useState<boolean>(false)
+    const [maxValue, setMaxValue] = useState<number>(45)
+    
   
     const Timer = (time:number, oldTime:Date) => {
         const interval = setInterval(
@@ -61,7 +63,7 @@ return (
 
       <div className="text-center mt-2">Pomodoro Tracker</div>
 
-        <CircularProgressbar value={minutes} maxValue={45} text={parseMinutesSec(time)} 
+        <CircularProgressbar value={minutes} maxValue={maxValue} text={parseMinutesSec(time)} background={minutes>maxValue}
         className="w-36 cursor-pointer mt-3"
         styles={buildStyles({
             // Rotation of path and trail, in number of turns (0-1)
@@ -75,13 +77,16 @@ return (
         
             // How long animation takes to go from one percentage to another, in seconds
             pathTransitionDuration: 0.1,
-        
+                    
             // Can specify path transition in more detail, or remove it entirely
             // pathTransition: 'none',
-        
+
+            
+
             // Colors
-            textColor: '#B2384F',
-            trailColor: '#B2384F',
+            textColor: `${started ? '#B2384F' : '#22c55e'}`,
+            trailColor: `${started ? '#B2384F' : '#22c55e'}`,
+            backgroundColor: 'red'
           })}        
         />
 
