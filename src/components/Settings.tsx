@@ -7,6 +7,8 @@ const Settings: React.FC = () => {
     const [gitHubKey, setGitHubKey] = useState<string>('')
     const [userName, setUserName] = useState<string>('')
     const [repositoryName, setRepositoryName] = useState<string>('')
+    const [pomodoroMaxValue, setPomodoroMaxValue] = useState<number>(45)
+    
 
     useEffect(() => {
         const settings:ISettings = getSettings()
@@ -16,6 +18,7 @@ const Settings: React.FC = () => {
 
         setUserName(settings.username)
         setRepositoryName(settings.reponame)
+        setPomodoroMaxValue(settings.pomodoroMaxValue)
     }, []
     )
 
@@ -26,7 +29,8 @@ const Settings: React.FC = () => {
         const settings:ISettings = {
             key: gitHubKey,
             username: userName,
-            reponame: repositoryName
+            reponame: repositoryName,
+            pomodoroMaxValue: pomodoroMaxValue
         }
 
         saveSettings(settings)
@@ -79,6 +83,15 @@ const Settings: React.FC = () => {
                         type="text"
                         placeholder="Insert a repository name" />
                 </div>
+
+                <div className="flex items-center h-8">
+                    <input
+                        value={pomodoroMaxValue}
+                        onChange={(e) => { setPomodoroMaxValue(parseInt(e.target.value)) }}
+                        className="rounded border border-gray-400 focus:bg-red-50"
+                        type="number"
+                        placeholder="The count work minutes of Pomodoro timer" />
+                </div>                
 
             </div>
 

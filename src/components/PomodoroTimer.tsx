@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { parseMinutesSec } from '../lib/timerHelpers'
+import { getPomodoroWorkTime } from '../lib/localstore'
 
 
 const PomodoroTimer: React.FC = () => {
@@ -11,6 +12,10 @@ const PomodoroTimer: React.FC = () => {
     const [started, setStarted] = useState<boolean>(false)
     const [maxValue, setMaxValue] = useState<number>(45)
     
+    useEffect(() => {
+      const value = getPomodoroWorkTime()
+      setMaxValue(value)
+  }, [])    
   
     const Timer = (time:number, oldTime:Date) => {
         const interval = setInterval(
