@@ -57,9 +57,12 @@ const PomodoroTimer: React.FC = () => {
     
 
 return (
-    <div onClick={onClickTimer} >
+    <div className=" ml-10 text-gray-600" onClick={onClickTimer} >
+
+      <div className="text-center mt-2">Pomodoro Tracker</div>
+
         <CircularProgressbar value={minutes} maxValue={45} text={parseMinutesSec(time)} 
-        className="h-30 cursor-pointer"
+        className="w-36 cursor-pointer mt-3"
         styles={buildStyles({
             // Rotation of path and trail, in number of turns (0-1)
             rotation: 0,
@@ -81,6 +84,9 @@ return (
             trailColor: '#B2384F',
           })}        
         />
+
+      <div className="text-center text-sm mt-1 text-gray-400">Click start/stop </div>
+
     </div>
     )
 }

@@ -5,7 +5,6 @@ import { Octokit } from "@octokit/core";
 import { getGitHubKey, setIssuesGitHub, getRepositoryName, getUserName } from '../lib/localstore'
 import Total from "./Total";
 import PomodoroTimer from "./PomodoroTimer";
-import PomodoroTimer2 from "./Pomodoro/PomodoroTimer2";
 
 const IssuesList: React.FC = () => {
   const [issues, setIssues] = useState<Array<IDBIssue>>([])
@@ -47,8 +46,8 @@ const IssuesList: React.FC = () => {
 
       <div className="flex flex-col  w-[80%] items-center justify-center">
 
-        <div className="container border text-gray-800">
-          <div className="flex flex-row-reverse bg-[#c3dbf5] h-22 border-b text-gray-800 h-10 items-center">
+        <div className="container border">
+          <div className="flex flex-row-reverse bg-[#c3dbf5] h-22 border-b h-10 items-center">
 
             <button
               onClick={getIssues}
@@ -83,7 +82,7 @@ const IssuesList: React.FC = () => {
 
       </div>
 
-      <div className="flex w-[100px] ml-5 mt-10">
+      <div className="flex w-[100px]">
             <PomodoroTimer />
       </div>
 
