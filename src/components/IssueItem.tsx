@@ -131,7 +131,7 @@ const IssueItem: React.FC<IDBIssue> = (props) => {
   }
 
   return (
-    <div className="flex flex-row border-b py-1 text-gray-600 items-center">
+    <div className="flex flex-row mt-3 border-b py-1 text-gray-600 items-center">
 
       <div className="basis-5/6" >
 

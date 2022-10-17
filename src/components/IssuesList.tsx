@@ -47,7 +47,7 @@ const IssuesList: React.FC = () => {
       <div className="flex flex-col  w-[80%] items-center justify-center">
 
         <div className="container border">
-          <div className="flex flex-row-reverse bg-[#c3dbf5] h-22 border-b h-10 items-center">
+          <div className="flex flex-row-reverse bg-[#c3dbf5] border-b h-10 items-center">
 
             <button
               onClick={getIssues}
