@@ -11,15 +11,9 @@ const PomodoroTimer: React.FC = () => {
     const [minutes, setMinutes] = useState<number>(0)
     const [intervalID, setIntervalID] = useState<NodeJS.Timer>()
     const [started, setStarted] = useState<boolean>(false)
-    const [maxValue, setMaxValue] = useState<number>(45)
-
     const settingsContext = useContext(SettingsContext)
-    
-    useEffect(() => {
-      const value = getPomodoroWorkTime()
-      setMaxValue(value)
-  }, [])    
-  
+    const [maxValue, setMaxValue] = useState<number>(settingsContext.settings.pomodoroMaxValue)
+
     const Timer = (time:number, oldTime:Date) => {
         const interval = setInterval(
           () => {
@@ -98,7 +92,9 @@ return (
           })}        
         />
 
-      <div className="text-center text-sm mt-1 text-gray-400">Click start/stop </div>
+      <div className="text-center text-sm mt-1 text-gray-400">Click start/stop 
+        <div>(rest time {maxValue} min)</div>
+      </div>
 
     </div>
     )
