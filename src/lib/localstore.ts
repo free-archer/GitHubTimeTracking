@@ -39,21 +39,37 @@ export const getUserName= ():string => {
     return localStorage.getItem(USERKEY) || ''
 }
 
+//Pomodoro work tome
+const POMODOROWORK = 'POMODOROWORK'
+
+export const savePomodoroWorkTime = (pomodoroMaxValue:number):void => {
+    localStorage.setItem(POMODOROWORK, pomodoroMaxValue.toString())
+}
+
+export const getPomodoroWorkTime = ():number => {
+    const stime = localStorage.getItem(POMODOROWORK) || ''
+
+    return parseInt(stime)
+}
+
 export const saveSettings= (settings:ISettings):void => {
     saveUserName(settings.username)
     saveRepositoryName(settings.reponame)
     saveGitHubKey(settings.key)
+    savePomodoroWorkTime(settings.pomodoroMaxValue)
 }
 
 export const getSettings= ():ISettings => {
     const username = getUserName()
     const reponame = getRepositoryName()
     const key = getGitHubKey()
+    const pomodoroMaxValue = getPomodoroWorkTime()
 
     return {
         key: key,
         username: username,
         reponame: reponame,
+        pomodoroMaxValue: pomodoroMaxValue,
     }
 }
 
