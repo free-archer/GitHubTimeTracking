@@ -11,7 +11,6 @@ export const settings:IContextSettings = {
         reponame: local_settings.reponame,
         pomodoroMaxValue: local_settings.pomodoroMaxValue
     },
-    test: 'qq'
 }
 
 export const SettingsContext = react.createContext(settings)

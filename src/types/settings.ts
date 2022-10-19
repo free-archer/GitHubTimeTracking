@@ -7,5 +7,4 @@ export interface ISettings {
 
 export interface IContextSettings {
     settings: ISettings,
-    test: string
 }
