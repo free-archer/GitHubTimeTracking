@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import IssueItem from "./IssueItem";
 import { IDBIssue } from '../types/dbissues'
 import { Octokit } from "@octokit/core";
-import { getGitHubKey, setIssuesGitHub, getRepositoryName, getUserName } from '../lib/localstore'
+import { setIssuesGitHub } from '../lib/localstore'
+import { SettingsContext } from "../lib/SettingsContext";
 import Total from "./Total";
 import PomodoroTimer from "./PomodoroTimer";
 
 const IssuesList: React.FC = () => {
+  const settingsContext = useContext(SettingsContext)
   const [issues, setIssues] = useState<Array<IDBIssue>>([])
   const [total, setTotal] = useState<number>(0)
 
@@ -16,9 +18,9 @@ const IssuesList: React.FC = () => {
   )
 
   const getIssues = async () => {
-    const gitHubKey: string = getGitHubKey()
-    const repositoryName: string = getRepositoryName()
-    const userName: string = getUserName()
+    const gitHubKey: string = settingsContext.settings.key
+    const repositoryName: string = settingsContext.settings.reponame
+    const userName: string = settingsContext.settings.username    
 
     const octokit = new Octokit({
       auth: gitHubKey,

@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { parseMinutesSec } from '../lib/timerHelpers'
-import { getPomodoroWorkTime } from '../lib/localstore'
 import { SettingsContext } from "../lib/SettingsContext";
 
 

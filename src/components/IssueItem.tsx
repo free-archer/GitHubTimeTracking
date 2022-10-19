@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { IDBIssue } from "../types/dbissues";
-import { setIssueTimeDB, toDay } from '../lib/localstore'
+import { setIssueTimeDB } from '../lib/localstore'
 import { CSSProperties } from "react";
 
 const editImg = require('../lib/img/Pencil-icon16.png')

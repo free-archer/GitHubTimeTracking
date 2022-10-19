@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { clearGitHubKey, saveSettings, getSettings } from '../lib/localstore'
+import { clearGitHubKey, saveSettings } from '../lib/localstore'
 import { ISettings } from '../types/settings'
 import { SettingsContext } from "../lib/SettingsContext";
 
