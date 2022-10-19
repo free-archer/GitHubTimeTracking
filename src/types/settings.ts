@@ -4,3 +4,8 @@ export interface ISettings {
     reponame: string|'',
     pomodoroMaxValue: number
 }
+
+export interface IContextSettings {
+    settings: ISettings,
+    test: string
+}

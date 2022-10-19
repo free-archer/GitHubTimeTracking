@@ -1,15 +1,21 @@
+import React, { useContext } from "react";
 import {Routes, Route, Link} from 'react-router-dom'
 import Main from '../pages/Main';
 import SettingsPage from '../pages/SettingsPage';
+import { SettingsContext } from "../lib/SettingsContext";
+
 const logo = require('../lib/img/GitHub-Mark-32px.png')
 
 const NavBar:React.FC  = () => {
+    const settingsContext = useContext(SettingsContext)
+
+    const githubUrl = `https://github.com/${settingsContext.settings.username}/${settingsContext.settings.reponame}/issues`
 
     return (
         <>    
         <nav className="container-xl flex flex-row bg-[#3B8BEA] text-[#c3dbf5] text-xl p-5 w-full h-20 items-center">
 
-            <a href="http://github.com" target="_blank">
+            <a href={githubUrl} target="_blank">
                 <img className="ml-3 h-10" src={logo}/>
             </a>
 

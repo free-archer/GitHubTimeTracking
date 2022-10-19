@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { parseMinutesSec } from '../lib/timerHelpers'
 import { getPomodoroWorkTime } from '../lib/localstore'
+import { SettingsContext } from "../lib/SettingsContext";
 
 
 const PomodoroTimer: React.FC = () => {
@@ -11,6 +12,8 @@ const PomodoroTimer: React.FC = () => {
     const [intervalID, setIntervalID] = useState<NodeJS.Timer>()
     const [started, setStarted] = useState<boolean>(false)
     const [maxValue, setMaxValue] = useState<number>(45)
+
+    const settingsContext = useContext(SettingsContext)
     
     useEffect(() => {
       const value = getPomodoroWorkTime()
