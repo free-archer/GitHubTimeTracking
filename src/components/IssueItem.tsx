@@ -141,7 +141,8 @@ const IssueItem: React.FC<IDBIssue> = (props) => {
           {props.labels.map((label) => (
             <div
               className="flex border-solid border border-gray-800 rounded-full mx-1 px-2 py-1 text-xs"
-              style={labelColor(label.color)} >
+              style={labelColor(label.color)} 
+              key={label.name}>
               <span className="">{label.name}</span>
             </div>
           ))

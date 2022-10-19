@@ -58,7 +58,7 @@ const PomodoroTimer: React.FC = () => {
     
         clearInterval(intervalID)
       }
-    
+
 
 return (
     <div className=" ml-10 text-gray-600" onClick={onClickTimer} >

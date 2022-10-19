@@ -1,27 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { clearGitHubKey, saveSettings, getSettings } from '../lib/localstore'
 import { ISettings } from '../types/settings'
+import { SettingsContext } from "../lib/SettingsContext";
 
 const Settings: React.FC = () => {
-    const [haskey, setHasKey] = useState<boolean>(false)
-    const [gitHubKey, setGitHubKey] = useState<string>('')
-    const [userName, setUserName] = useState<string>('')
-    const [repositoryName, setRepositoryName] = useState<string>('')
-    const [pomodoroMaxValue, setPomodoroMaxValue] = useState<number>(45)
+    const settingContext = useContext(SettingsContext)
+    const [gitHubKey, setGitHubKey] = useState<string>(settingContext.settings.key)
+    const [haskey, setHasKey] = useState<boolean>(settingContext.settings.key !== '')
+    const [userName, setUserName] = useState<string>(settingContext.settings.username)
+    const [repositoryName, setRepositoryName] = useState<string>(settingContext.settings.reponame)
+    const [pomodoroMaxValue, setPomodoroMaxValue] = useState<number>(settingContext.settings.pomodoroMaxValue)
     
-
-    useEffect(() => {
-        const settings:ISettings = getSettings()
-
-        setGitHubKey(settings.key)
-        setHasKey(settings.key !== '')
-
-        setUserName(settings.username)
-        setRepositoryName(settings.reponame)
-        setPomodoroMaxValue(settings.pomodoroMaxValue)
-    }, []
-    )
-
     const saveSettingsHandler = () => {
         if (gitHubKey !== '') {
             setHasKey(true)
@@ -34,6 +23,8 @@ const Settings: React.FC = () => {
         }
 
         saveSettings(settings)
+
+        settingContext.settings = settings
     }
 
     const clearGitHubKeyHandler = () => {
@@ -87,7 +78,7 @@ const Settings: React.FC = () => {
                 <div className="flex items-center h-8">
                     <input
                         value={pomodoroMaxValue}
-                        onChange={(e) => { setPomodoroMaxValue(parseInt(e.target.value)) }}
+                        onChange={(e) => { setPomodoroMaxValue(parseInt(e.target.value || '0')) }}
                         className="rounded border border-gray-400 focus:bg-red-50"
                         type="number"
                         placeholder="The count work minutes of Pomodoro timer" />
