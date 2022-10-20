@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { SettingsContext } from "../lib/SettingsContext";
+import { labelColor } from '../lib/componentHelpers'
 
 interface IProps  {
     label:string,
@@ -25,7 +25,10 @@ export const Filter:React.FC<IProps> = ({label, setFilterLabels}) => {
 
     return (
         <>
-            <div className="flex items-center h-7 border-solid border border-gray-800 rounded-full mx-1 px-2 py-1 text-xs">
+            <div 
+                className="flex items-center h-7 border-solid border border-gray-800 rounded-full mx-1 px-2 py-1 text-xs"
+                
+            >
                 {label}
                 <span onClick={delLabel} className="cursor-pointer ml-1" >
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
