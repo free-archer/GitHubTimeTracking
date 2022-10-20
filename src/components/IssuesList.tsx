@@ -29,17 +29,40 @@ const IssuesList: React.FC = () => {
     const octokit = new Octokit({
       auth: gitHubKey,
     });
-debugger
+
     const issuesData = await octokit.request(`GET /repos/${userName}/${repositoryName}/issues`, {
       sort: 'updated',
-      labels: filterLabels.map((el) => (el.name)).join(',')
+      // labels: filterLabels.map((el) => (el.name)).join(',')
     }
     )
 
     if (issuesData.status === 200) {
-
+debugger
       const dbIssues: IDBIssue[] = setIssuesGitHub(issuesData.data)
-      setIssues(state => dbIssues)
+
+      if (filterLabels.length) {
+        // const filtredIssues:IDBIssue[] = dbIssues.filter((el) => {
+        //   let is = false
+  
+        //     is = filterLabels.some((ll) => (ll.id === el.id))
+  
+        //   return is
+        // }) 
+
+        const labels = filterLabels.map(el => el.id)
+
+        // let filtredIssues:IDBIssue[]  = dbIssues.filter((dbissue) => dbissue.labels.some(label => labels.some(id => id===label.id )))
+        let filtredIssues:IDBIssue[]  = dbIssues.filter((dbissue) => labels.every(id => dbissue.labels.some(dbl => dbl.id === id)))
+  
+        setIssues(state => filtredIssues)
+
+      } else {
+
+        setIssues(state => dbIssues)
+
+      }
+      
+      
 
       let sum = 0
       dbIssues.forEach(issue => sum += issue.curtime)
