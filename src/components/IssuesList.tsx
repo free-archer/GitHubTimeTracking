@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import IssueItem from "./IssueItem";
-import { IDBIssue } from '../types/dbissues'
+import { IDBIssue, ILabel } from '../types/dbissues'
 import { Octokit } from "@octokit/core";
 import { setIssuesGitHub } from '../lib/localstore'
 import { SettingsContext } from "../lib/SettingsContext";
@@ -12,7 +12,7 @@ const IssuesList: React.FC = () => {
   const settingsContext = useContext(SettingsContext)
   const [issues, setIssues] = useState<Array<IDBIssue>>([])
   const [total, setTotal] = useState<number>(0)
-  const [filterLabels, setFilterLabels] = useState<string>('')
+  const [filterLabels, setFilterLabels] = useState<ILabel[]>([])
 
   settingsContext.setFilterLabels = setFilterLabels
 
@@ -29,10 +29,10 @@ const IssuesList: React.FC = () => {
     const octokit = new Octokit({
       auth: gitHubKey,
     });
-
+debugger
     const issuesData = await octokit.request(`GET /repos/${userName}/${repositoryName}/issues`, {
       sort: 'updated',
-      labels: filterLabels
+      labels: filterLabels.map((el) => (el.name)).join(',')
     }
     )
 
@@ -69,11 +69,11 @@ const IssuesList: React.FC = () => {
             </button>
 
             <div className="flex">
-              {filterLabels.split(',').map((label) => 
+              {filterLabels.map((label) => 
               (
                 label &&
                 <Filter 
-                key={label}
+                key={label.id}
                 label={label}
                 setFilterLabels={setFilterLabels}
                 />

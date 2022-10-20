@@ -1,3 +1,5 @@
+import { ILabel } from "./dbissues"
+
 export interface ISettings {
     key: string|'',
     username: string|'',
@@ -10,5 +12,5 @@ export interface IContextSettings {
     filters: {
         labels: string
     }
-    setFilterLabels: React.Dispatch<React.SetStateAction<string>> | undefined
+    setFilterLabels: React.Dispatch<React.SetStateAction<ILabel[]>> | undefined
 }

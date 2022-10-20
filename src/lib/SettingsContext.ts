@@ -1,8 +1,9 @@
-import react from 'react'
+import React, { } from "react";
 import { ISettings, IContextSettings } from '../types/settings'
 import { getSettings } from '../lib/localstore'
 
 const local_settings:ISettings = getSettings()
+
 
 export const settings:IContextSettings = {
     settings: {
@@ -17,4 +18,4 @@ export const settings:IContextSettings = {
     setFilterLabels: undefined
 }
 
-export const SettingsContext = react.createContext(settings)
+export const SettingsContext = React.createContext(settings)

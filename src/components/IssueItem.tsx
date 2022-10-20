@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { IDBIssue } from "../types/dbissues";
+import { IDBIssue, ILabel } from "../types/dbissues";
 import { setIssueTimeDB } from '../lib/localstore'
 import { SettingsContext } from "../lib/SettingsContext";
 import { labelColor } from '../lib/componentHelpers'
@@ -107,9 +107,9 @@ const IssueItem: React.FC<IDBIssue> = (props) => {
     }
   }
 
-  const createFilter = (name:string) => {
+  const createFilter = (label:ILabel) => {
     if (settingsContext.setFilterLabels) {
-      settingsContext.setFilterLabels((state) => (state += name + ','))
+      settingsContext.setFilterLabels((state) => (state = [...state, label]))
     }
   }
 
@@ -126,7 +126,7 @@ const IssueItem: React.FC<IDBIssue> = (props) => {
               className="flex border-solid border border-gray-800 rounded-full mx-1 px-2 py-1 text-xs cursor-pointer"
               style={labelColor(label.color)} 
               key={label.name}
-              onClick={() => createFilter(label.name)}
+              onClick={() => createFilter(label)}
               >
               <span className="">{label.name}</span>
             </div>
