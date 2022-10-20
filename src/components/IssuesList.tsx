@@ -11,10 +11,13 @@ const IssuesList: React.FC = () => {
   const settingsContext = useContext(SettingsContext)
   const [issues, setIssues] = useState<Array<IDBIssue>>([])
   const [total, setTotal] = useState<number>(0)
+  const [filterLabels, setFilterLabels] = useState<string>('')
+
+  settingsContext.setFilterLabels = setFilterLabels
 
   useEffect(() => {
     getIssues()
-  }, []
+  }, [filterLabels]
   )
 
   const getIssues = async () => {
@@ -27,7 +30,8 @@ const IssuesList: React.FC = () => {
     });
 
     const issuesData = await octokit.request(`GET /repos/${userName}/${repositoryName}/issues`, {
-      sort: 'updated'
+      sort: 'updated',
+      labels: filterLabels
     }
     )
 

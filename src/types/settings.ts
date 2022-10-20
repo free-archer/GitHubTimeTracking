@@ -7,4 +7,8 @@ export interface ISettings {
 
 export interface IContextSettings {
     settings: ISettings,
+    filters: {
+        labels: string
+    }
+    setFilterLabels: React.Dispatch<React.SetStateAction<string>> | undefined
 }

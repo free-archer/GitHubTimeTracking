@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { IDBIssue } from "../types/dbissues";
 import { setIssueTimeDB } from '../lib/localstore'
 import { CSSProperties } from "react";
+import { SettingsContext } from "../lib/SettingsContext";
 
 const editImg = require('../lib/img/Pencil-icon16.png')
 const saveImg = require('../lib/img/Save-icon16.png')
@@ -12,6 +13,8 @@ const IssueItem: React.FC<IDBIssue> = (props) => {
   const [started, setStarted] = useState<boolean>(false)
   const [editedTime, setEditedTime] = useState<string>('00:00')
   const [editMode, setEditMode] = useState<boolean>(false)
+
+  const settingsContext = useContext(SettingsContext)
 
   // useEffect(() => {
 
@@ -130,6 +133,12 @@ const IssueItem: React.FC<IDBIssue> = (props) => {
     }
   }
 
+  const createFilter = (name:string) => {
+    if (settingsContext.setFilterLabels) {
+      settingsContext.setFilterLabels(name)
+    }
+  }
+
   return (
     <div className="flex flex-row mt-3 border-b py-1 text-gray-600 items-center">
 
@@ -140,9 +149,11 @@ const IssueItem: React.FC<IDBIssue> = (props) => {
 
           {props.labels.map((label) => (
             <div
-              className="flex border-solid border border-gray-800 rounded-full mx-1 px-2 py-1 text-xs"
+              className="flex border-solid border border-gray-800 rounded-full mx-1 px-2 py-1 text-xs cursor-pointer"
               style={labelColor(label.color)} 
-              key={label.name}>
+              key={label.name}
+              onClick={() => createFilter(label.name)}
+              >
               <span className="">{label.name}</span>
             </div>
           ))

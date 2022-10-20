@@ -11,6 +11,10 @@ export const settings:IContextSettings = {
         reponame: local_settings.reponame,
         pomodoroMaxValue: local_settings.pomodoroMaxValue
     },
+    filters: {
+        labels: ''
+    },
+    setFilterLabels: undefined
 }
 
 export const SettingsContext = react.createContext(settings)
