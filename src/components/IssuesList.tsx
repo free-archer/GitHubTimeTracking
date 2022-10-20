@@ -6,6 +6,7 @@ import { setIssuesGitHub } from '../lib/localstore'
 import { SettingsContext } from "../lib/SettingsContext";
 import Total from "./Total";
 import PomodoroTimer from "./PomodoroTimer";
+import { Filter } from "./Filter";
 
 const IssuesList: React.FC = () => {
   const settingsContext = useContext(SettingsContext)
@@ -66,6 +67,19 @@ const IssuesList: React.FC = () => {
               Refresh
 
             </button>
+
+            <div className="flex">
+              {filterLabels.split(',').map((label) => 
+              (
+                label &&
+                <Filter 
+                key={label}
+                label={label}
+                setFilterLabels={setFilterLabels}
+                />
+              )
+              )}
+            </div>            
 
           </div>
 

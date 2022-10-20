@@ -135,7 +135,7 @@ const IssueItem: React.FC<IDBIssue> = (props) => {
 
   const createFilter = (name:string) => {
     if (settingsContext.setFilterLabels) {
-      settingsContext.setFilterLabels(name)
+      settingsContext.setFilterLabels((state) => (state += name + ','))
     }
   }
 
