@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { IDBIssue } from "../types/dbissues";
+import React, { useEffect, useState, useContext } from "react";
+import { IDBIssue, ILabel } from "../types/dbissues";
 import { setIssueTimeDB } from '../lib/localstore'
-import { CSSProperties } from "react";
+import { SettingsContext } from "../lib/SettingsContext";
+import { labelColor } from '../lib/componentHelpers'
 
 const editImg = require('../lib/img/Pencil-icon16.png')
 const saveImg = require('../lib/img/Save-icon16.png')
@@ -12,6 +13,8 @@ const IssueItem: React.FC<IDBIssue> = (props) => {
   const [started, setStarted] = useState<boolean>(false)
   const [editedTime, setEditedTime] = useState<string>('00:00')
   const [editMode, setEditMode] = useState<boolean>(false)
+
+  const settingsContext = useContext(SettingsContext)
 
   // useEffect(() => {
 
@@ -78,32 +81,6 @@ const IssueItem: React.FC<IDBIssue> = (props) => {
     return sTime.slice(0, -3)
   }
 
-  const labelColor = (label_color: string): CSSProperties => {
-    const bgcolor: string = '#' + label_color || '#FFF'
-
-    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(bgcolor)
-    if (!result) {
-      return {}
-    }
-
-    const red = parseInt(result[1], 16)
-    const green = parseInt(result[2], 16)
-    const blue = parseInt(result[3], 16)
-
-    let color = ''
-    if (0.299 * red + 0.587 * green + 0.114 * blue > 127.5) {
-      color = '#020202'
-    } else {
-      color = '#FFF'
-    }
-
-    return {
-      color: color,
-      backgroundColor: bgcolor,
-
-    }
-  }
-
   const editTimeHelper = () => {
     if (!editMode) {
       stopTimer()
@@ -130,6 +107,21 @@ const IssueItem: React.FC<IDBIssue> = (props) => {
     }
   }
 
+  const createFilter = (label:ILabel) => {
+    if (settingsContext.setFilterLabels) {
+
+        settingsContext.setFilterLabels((state) => {
+
+          if (state.findIndex(el => el.id === label.id) >= 0) {
+            return state
+          }
+
+          return [...state, label]
+
+        })
+    }
+  }
+
   return (
     <div className="flex flex-row mt-3 border-b py-1 text-gray-600 items-center">
 
@@ -140,9 +132,11 @@ const IssueItem: React.FC<IDBIssue> = (props) => {
 
           {props.labels.map((label) => (
             <div
-              className="flex border-solid border border-gray-800 rounded-full mx-1 px-2 py-1 text-xs"
+              className="flex border-solid border border-gray-800 rounded-full mx-1 px-2 py-1 text-xs cursor-pointer"
               style={labelColor(label.color)} 
-              key={label.name}>
+              key={label.name}
+              onClick={() => createFilter(label)}
+              >
               <span className="">{label.name}</span>
             </div>
           ))
