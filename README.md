@@ -38,7 +38,9 @@ After that go back to main window and you will see your list of github issues.
 
 ![GitHub](./screenshots/github.png)
 
-You can start and stop timer, also edit registered time manually.
+You can start and stop timer, also edit registered time manually. 
+
+Also, I added a Pomodoro Timer. It gets opportunity to control your work times. The Pomodoro Timer is not connected with the Time Tracker. It works independently.
 
 ![Edit time](./screenshots/edit.png)
 
