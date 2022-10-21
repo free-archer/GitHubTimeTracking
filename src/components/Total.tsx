@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { IDBIssue } from "../types/dbissues";
-// import { setIssueTimeDB, toDay } from '../lib/localstore'
 
 const Total:React.FC<props> = (props) => {
 

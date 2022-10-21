@@ -1,38 +1,65 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import IssueItem from "./IssueItem";
-import { IDBIssue } from '../types/dbissues'
+import { IDBIssue, ILabel } from '../types/dbissues'
 import { Octokit } from "@octokit/core";
-import { getGitHubKey, setIssuesGitHub, getRepositoryName, getUserName } from '../lib/localstore'
+import { setIssuesGitHub } from '../lib/localstore'
+import { SettingsContext } from "../lib/SettingsContext";
 import Total from "./Total";
 import PomodoroTimer from "./PomodoroTimer";
+import { Filter } from "./Filter";
 
 const IssuesList: React.FC = () => {
+  const settingsContext = useContext(SettingsContext)
   const [issues, setIssues] = useState<Array<IDBIssue>>([])
+  const [filtredIssues, setFiltredIssues] = useState<Array<IDBIssue>>([])
   const [total, setTotal] = useState<number>(0)
+  const [filterLabels, setFilterLabels] = useState<ILabel[]>([])
+
+  settingsContext.setFilterLabels = setFilterLabels
 
   useEffect(() => {
     getIssues()
   }, []
   )
 
+  useEffect(() => {
+
+      if (filterLabels.length) {
+
+        const labels = filterLabels.map(el => el.id)
+
+        setFiltredIssues(state => (issues.filter((dbissue) => labels.every(id => dbissue.labels.some(dbl => dbl.id === id)))))
+
+      } else {
+
+        setFiltredIssues(state => issues)
+
+      }
+    }, [filterLabels]
+  )
+
   const getIssues = async () => {
-    const gitHubKey: string = getGitHubKey()
-    const repositoryName: string = getRepositoryName()
-    const userName: string = getUserName()
+    const gitHubKey: string = settingsContext.settings.key
+    const repositoryName: string = settingsContext.settings.reponame
+    const userName: string = settingsContext.settings.username    
 
     const octokit = new Octokit({
       auth: gitHubKey,
     });
 
     const issuesData = await octokit.request(`GET /repos/${userName}/${repositoryName}/issues`, {
-      sort: 'updated'
+      sort: 'updated',
+      // labels: filterLabels.map((el) => (el.name)).join(',')
     }
     )
 
     if (issuesData.status === 200) {
 
       const dbIssues: IDBIssue[] = setIssuesGitHub(issuesData.data)
+
       setIssues(state => dbIssues)
+      setFiltredIssues(state => dbIssues)
+      setFilterLabels([])
 
       let sum = 0
       dbIssues.forEach(issue => sum += issue.curtime)
@@ -61,9 +88,22 @@ const IssuesList: React.FC = () => {
 
             </button>
 
+            <div className="flex">
+              {filterLabels.map((label) => 
+              (
+                label &&
+                <Filter 
+                key={label.id}
+                label={label}
+                setFilterLabels={setFilterLabels}
+                />
+              )
+              )}
+            </div>            
+
           </div>
 
-          {issues?.map((issue: IDBIssue) => (
+          {filtredIssues?.map((issue: IDBIssue) => (
             <IssueItem
               key={issue.id}
               id={issue.id}
