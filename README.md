@@ -11,6 +11,15 @@ Stack: React + Typescript
 *I want to introduce you to my project, which I have been doing lately.
 At work, I need to record the time I spend on tasks. At one time I used Bitrix24, but its functionality was too mutch for me. And the idea came to me to make a time tracker with GitHub as a backend.*
 
+## Fast demo
+
+There is demo link:
+http://a0364987.xsph.ru
+
+I pay attention that all data is saved only in your browser (in a LocalStorage).
+
+Therefore, you can use this site for a while.
+
 ## Getting Started
 
 ```
