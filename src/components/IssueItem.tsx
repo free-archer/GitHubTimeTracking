@@ -109,7 +109,16 @@ const IssueItem: React.FC<IDBIssue> = (props) => {
 
   const createFilter = (label:ILabel) => {
     if (settingsContext.setFilterLabels) {
-      settingsContext.setFilterLabels((state) => (state = [...state, label]))
+
+        settingsContext.setFilterLabels((state) => {
+
+          if (state.findIndex(el => el.id === label.id) >= 0) {
+            return state
+          }
+
+          return [...state, label]
+
+        })
     }
   }
 

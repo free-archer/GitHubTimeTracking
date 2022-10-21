@@ -11,6 +11,7 @@ import { Filter } from "./Filter";
 const IssuesList: React.FC = () => {
   const settingsContext = useContext(SettingsContext)
   const [issues, setIssues] = useState<Array<IDBIssue>>([])
+  const [filtredIssues, setFiltredIssues] = useState<Array<IDBIssue>>([])
   const [total, setTotal] = useState<number>(0)
   const [filterLabels, setFilterLabels] = useState<ILabel[]>([])
 
@@ -18,7 +19,23 @@ const IssuesList: React.FC = () => {
 
   useEffect(() => {
     getIssues()
-  }, [filterLabels]
+  }, []
+  )
+
+  useEffect(() => {
+
+      if (filterLabels.length) {
+
+        const labels = filterLabels.map(el => el.id)
+
+        setFiltredIssues(state => (issues.filter((dbissue) => labels.every(id => dbissue.labels.some(dbl => dbl.id === id)))))
+
+      } else {
+
+        setFiltredIssues(state => issues)
+
+      }
+    }, [filterLabels]
   )
 
   const getIssues = async () => {
@@ -37,32 +54,12 @@ const IssuesList: React.FC = () => {
     )
 
     if (issuesData.status === 200) {
-debugger
+
       const dbIssues: IDBIssue[] = setIssuesGitHub(issuesData.data)
 
-      if (filterLabels.length) {
-        // const filtredIssues:IDBIssue[] = dbIssues.filter((el) => {
-        //   let is = false
-  
-        //     is = filterLabels.some((ll) => (ll.id === el.id))
-  
-        //   return is
-        // }) 
-
-        const labels = filterLabels.map(el => el.id)
-
-        // let filtredIssues:IDBIssue[]  = dbIssues.filter((dbissue) => dbissue.labels.some(label => labels.some(id => id===label.id )))
-        let filtredIssues:IDBIssue[]  = dbIssues.filter((dbissue) => labels.every(id => dbissue.labels.some(dbl => dbl.id === id)))
-  
-        setIssues(state => filtredIssues)
-
-      } else {
-
-        setIssues(state => dbIssues)
-
-      }
-      
-      
+      setIssues(state => dbIssues)
+      setFiltredIssues(state => dbIssues)
+      setFilterLabels([])
 
       let sum = 0
       dbIssues.forEach(issue => sum += issue.curtime)
@@ -106,7 +103,7 @@ debugger
 
           </div>
 
-          {issues?.map((issue: IDBIssue) => (
+          {filtredIssues?.map((issue: IDBIssue) => (
             <IssueItem
               key={issue.id}
               id={issue.id}
