@@ -10,7 +10,7 @@ export const settings:IContextSettings = {
         key: local_settings.key,
         username: local_settings.username,
         reponame: local_settings.reponame,
-        pomodoroMaxValue: local_settings.pomodoroMaxValue
+        pomodoroMaxValue: local_settings.pomodoroMaxValue || 45
     },
     filters: {
         labels: ''

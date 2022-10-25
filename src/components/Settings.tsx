@@ -33,6 +33,19 @@ const Settings: React.FC = () => {
         setGitHubKey('')
     }
 
+               
+    const cangePomidiroValue = (e: React.ChangeEvent<HTMLInputElement>):void => {
+        setPomodoroMaxValue((state) => {
+            const value = parseInt( e.target.value || '0')
+            
+            if (value < 0) {
+                return 0
+            }
+
+            return value
+        })         
+
+    }
     return (
         <div className="bg-gray-200 flex flex-row w-100">
             <div className="basis-48 ">
@@ -78,7 +91,7 @@ const Settings: React.FC = () => {
                 <div className="flex items-center h-8">
                     <input
                         value={pomodoroMaxValue}
-                        onChange={(e) => { setPomodoroMaxValue(parseInt(e.target.value || '0')) }}
+                        onChange={cangePomidiroValue}
                         className="rounded border border-gray-400 focus:bg-red-50"
                         type="number"
                         placeholder="The count work minutes of Pomodoro timer" />
