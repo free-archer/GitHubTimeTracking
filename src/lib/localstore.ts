@@ -162,6 +162,7 @@ export const setIssueTimeDB = (id: number, started:boolean, time:number, date?:s
     }
 
     issue.curtime = time
+    issue.started = started
 
     setIssueDB(issue)
 }

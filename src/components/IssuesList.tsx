@@ -14,6 +14,7 @@ const IssuesList: React.FC = () => {
   const [filtredIssues, setFiltredIssues] = useState<Array<IDBIssue>>([])
   const [total, setTotal] = useState<number>(0)
   const [filterLabels, setFilterLabels] = useState<ILabel[]>([])
+  const [sorted, setSorted] = useState(false)
 
   settingsContext.setFilterLabels = setFilterLabels
 
@@ -22,20 +23,61 @@ const IssuesList: React.FC = () => {
   }, []
   )
 
-  useEffect(() => {
+  const filterIssue = ():IDBIssue[] => {
 
-      if (filterLabels.length) {
+    if (filterLabels.length) {
 
-        const labels = filterLabels.map(el => el.id)
+      const labels = filterLabels.map(el => el.id)
 
-        setFiltredIssues(state => (issues.filter((dbissue) => labels.every(id => dbissue.labels.some(dbl => dbl.id === id)))))
+      const state = issues.filter((dbissue) => labels.every(id => dbissue.labels.some(dbl => dbl.id === id)))
 
-      } else {
+      return state
 
-        setFiltredIssues(state => issues)
+    } else {
 
+      return issues
+
+    }
+  }
+
+  const sortIssue = (filter_issue:IDBIssue[]):IDBIssue[] => {
+
+    filter_issue.sort((a, b) => 
+    {
+      if (a.curtime > b.curtime) {
+        return -1
+        } else {
+          return 1
+        }
       }
-    }, [filterLabels]
+    )
+
+    //filter_issue.sort((a, b) => Number(b.started) - Number(a.started))
+
+    return filter_issue
+    
+  }
+
+  useEffect(() => {
+    //let  filter_issue = filterIssue()
+    let filter_issue = sortIssue(issues)
+
+    setFiltredIssues(state => filter_issue)
+
+    console.log(sorted)
+
+      // if (filterLabels.length) {
+
+      //   const labels = filterLabels.map(el => el.id)
+
+      //   setFiltredIssues(state => (issues.filter((dbissue) => labels.every(id => dbissue.labels.some(dbl => dbl.id === id)))))
+
+      // } else {
+
+      //   setFiltredIssues(state => issues)
+
+      // }
+    }, [filterLabels, sorted]
   )
 
   const getIssues = async () => {
@@ -58,7 +100,13 @@ const IssuesList: React.FC = () => {
       const dbIssues: IDBIssue[] = setIssuesGitHub(issuesData.data)
 
       setIssues(state => dbIssues)
-      setFiltredIssues(state => dbIssues)
+
+      if (sorted) {
+        setFiltredIssues(state => sortIssue(dbIssues))
+      } else {
+        setFiltredIssues(state => dbIssues)
+      }
+
       setFilterLabels([])
 
       let sum = 0
@@ -99,7 +147,12 @@ const IssuesList: React.FC = () => {
                 />
               )
               )}
-            </div>            
+            </div> 
+
+            <div className="flex">
+              <span className="mr-2 text-strong">Sort by time:</span> 
+              <input className="" type="checkbox" onChange={e => setSorted(e.target.checked)}/>
+            </div>           
 
           </div>
 
