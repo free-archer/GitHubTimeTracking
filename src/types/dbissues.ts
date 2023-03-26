@@ -4,7 +4,7 @@ export interface ITime {
 }
 
 export interface ILabel {
-    id: number;
+    id: number|string;
     name: string;
     color: string;
 }

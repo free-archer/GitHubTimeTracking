@@ -9,13 +9,14 @@ const logo = require('../lib/img/GitHub-Mark-32px.png')
 const NavBar:React.FC  = () => {
     const settingsContext = useContext(SettingsContext)
 
+    const githubUrlHome = `https://github.com/${settingsContext.settings.username}/`
     const githubUrl = `https://github.com/${settingsContext.settings.username}/${settingsContext.settings.reponame}/issues`
 
     return (
         <>    
         <nav className="container-xl flex flex-row bg-[#3B8BEA] text-[#c3dbf5] text-xl p-5 w-full h-20 items-center">
 
-            <a href={githubUrl} target="_blank">
+            <a href={githubUrlHome} target="_blank">
                 <img className="ml-3 h-10" src={logo}/>
             </a>
 
@@ -25,7 +26,15 @@ const NavBar:React.FC  = () => {
 
             <a href={githubUrl+"/new/choose"} target="_blank" className="flex ml-10 hover:text-[#e6e3d4] hover:border-b-2 hover:border-solid hover:border-[#e6e3d4] active:border-b-2 active:border-solid active:border-blue-300">
                 New Issue
-            </a>                    
+            </a>        
+
+            <a href={githubUrl} target="_blank" className="flex ml-10 hover:text-[#e6e3d4] hover:border-b-2 hover:border-solid hover:border-[#e6e3d4] active:border-b-2 active:border-solid active:border-blue-300">
+                Issues
+            </a>   
+
+            <a href={githubUrl+"?q=is%3Aclosed"} target="_blank" className="flex ml-10 hover:text-[#e6e3d4] hover:border-b-2 hover:border-solid hover:border-[#e6e3d4] active:border-b-2 active:border-solid active:border-blue-300">
+                Closes issues
+            </a>                                       
 
             <div className="grow"></div>
 

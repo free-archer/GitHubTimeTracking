@@ -192,13 +192,24 @@ export const setIssuesGitHub = (issues_github:IIssueAll[]):IDBIssue[] => {
 
     for (const issue_github of issues_github) {
 
-        // const label:ILabel|undefined = issue_github.labels.find(elem => (elem.color !== '#dddddd'))
-
         const labels:ILabel[] = issue_github.labels.map(elem => ({
             id: elem.id,
             name: elem.name,
             color: elem.color
         }))
+
+        const matches = issue_github.title.match(/(^[A-Z]+)-[0-9]+\s/)
+        if (matches) {
+            const project_name = matches[1]
+
+            const Project:ILabel = {
+                id: project_name,
+                name: project_name,
+                color: '7a189e'
+            }  
+            
+            labels.unshift(Project)
+        }
 
         const newIssueDB:IDBIssue = {
             id : issue_github.id,
