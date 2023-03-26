@@ -23,6 +23,10 @@ const NavBar:React.FC  = () => {
                 GitHub Time Tracking
             </Link>
 
+            <a href={githubUrl+"/new/choose"} target="_blank" className="flex ml-10 hover:text-[#e6e3d4] hover:border-b-2 hover:border-solid hover:border-[#e6e3d4] active:border-b-2 active:border-solid active:border-blue-300">
+                New Issue
+            </a>                    
+
             <div className="grow"></div>
 
             <Link to={"/settings"} className="mr-10 hover:text-[#e6e3d4] hover:border-b-2 hover:border-solid hover:border-[#e6e3d4] active:border-b-2 active:border-solid active:border-blue-300 ">
