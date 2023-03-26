@@ -9,13 +9,14 @@ const logo = require('../lib/img/GitHub-Mark-32px.png')
 const NavBar:React.FC  = () => {
     const settingsContext = useContext(SettingsContext)
 
+    const githubUrlHome = `https://github.com/${settingsContext.settings.username}/`
     const githubUrl = `https://github.com/${settingsContext.settings.username}/${settingsContext.settings.reponame}/issues`
 
     return (
         <>    
         <nav className="container-xl flex flex-row bg-[#3B8BEA] text-[#c3dbf5] text-xl p-5 w-full h-20 items-center">
 
-            <a href={githubUrl} target="_blank">
+            <a href={githubUrlHome} target="_blank">
                 <img className="ml-3 h-10" src={logo}/>
             </a>
 
