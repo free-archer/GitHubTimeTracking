@@ -108,6 +108,8 @@ const IssueItem: React.FC<IDBIssue> = (props) => {
   }
 
   const createFilter = (label:ILabel) => {
+     console.log(label);
+    
     if (settingsContext.setFilterLabels) {
 
         settingsContext.setFilterLabels((state) => {
