@@ -57,6 +57,8 @@ const IssuesList: React.FC = () => {
 
       const dbIssues: IDBIssue[] = setIssuesGitHub(issuesData.data)
 
+      console.log(issuesData)
+
       setIssues(state => dbIssues)
       setFiltredIssues(state => dbIssues)
       setFilterLabels([])
@@ -65,6 +67,24 @@ const IssuesList: React.FC = () => {
       dbIssues.forEach(issue => sum += issue.curtime)
 
       setTotal(sum)
+    }
+  }
+
+  const getProjects = async () => {
+    const gitHubKey: string = settingsContext.settings.key
+    const repositoryName: string = settingsContext.settings.reponame
+    const userName: string = settingsContext.settings.username    
+
+    const octokit = new Octokit({
+      auth: gitHubKey,
+    });
+
+    const ProjectsData = await octokit.request(`GET /repos/${userName}/${repositoryName}/projects`, { } )
+
+    if (ProjectsData.status === 200) {
+
+      const Projects = setIssuesGitHub(ProjectsData.data)
+
     }
   }
 
