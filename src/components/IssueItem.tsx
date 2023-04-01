@@ -124,6 +124,9 @@ const IssueItem: React.FC<IDBIssue> = (props) => {
     }
   }
 
+  const clearTime = () => {
+    setEditedTime('00:00')
+  }
   return (
     <div className="flex flex-row mt-3 border-b py-1 text-gray-600 items-center">
 
@@ -177,6 +180,7 @@ const IssueItem: React.FC<IDBIssue> = (props) => {
         </div>
 
         {editMode &&
+        <div className="flex flex-row cursor-pointer" onClick={clearTime}>
           <input
             value={editedTime}
             onChange={(e) => { setEditedTime(e.target.value) }}
@@ -184,6 +188,13 @@ const IssueItem: React.FC<IDBIssue> = (props) => {
             type="text"
             placeholder="00:00"
           />
+          <div>
+          <svg fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" className="w-6 h-8 flex">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </div>
+        </div>
+
         }
         
       </div>
