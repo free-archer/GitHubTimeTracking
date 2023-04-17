@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
 import { IDBIssue, ILabel } from "../types/dbissues";
-// import { setIssueTimeDB } from '../lib/localstore'
 import { SettingsContext } from "../lib/SettingsContext";
 import { labelColor } from '../lib/componentHelpers'
 
@@ -20,11 +19,6 @@ const IssueItem: React.FC<IDBIssue> = (props) => {
 
   const issuesState:any = useIssuesStore()
   const setIssueTimeDB = useIssuesStore((state:IDBIssue[]|any) => state.setIssueTimeDB)
-
-  // useEffect(() => {
-
-  //   setTime(state => (() =>( || 0))
-  // })
 
   useEffect(() => {
     if (time !== 0) {
@@ -63,7 +57,6 @@ const IssueItem: React.FC<IDBIssue> = (props) => {
 
     return interval
   }
-
 
   const parseTime = (time: number): string => {
     const hours = Math.trunc(time / 3600)
