@@ -1,4 +1,4 @@
-import { IDBIssue, ILabel, ITime } from '../types/dbissues'
+import { IDBIssue, ILabel } from '../types/dbissues'
 import { IIssueAll } from '../types/issues'
 import { ISettings } from '../types/settings'
 
@@ -119,22 +119,8 @@ export const getIssueTimeDB = (id: number, date?: string):number => {
     return (time === undefined ? 0 : time)
 }
 
-export const getOTime = (issue:IDBIssue, date:string):ITime => {
-    if (issue.times) {
-        const oTime:ITime|undefined = issue.times.find((elem) => (elem.date === date))
-
-        if (oTime) {
-            return oTime       
-        }
-    }
-
-    return {date: date, time: 0}
-}
-
 export const getTime = (issue:IDBIssue, date:string):number => {
-        const times = getOTime(issue, date)
-
-        const time:number = times?.time || 0
+        const time:number = issue.curtime || 0
      
         return time
  }
@@ -146,20 +132,6 @@ export const setIssueTimeDB = (id: number, started:boolean, time:number, date?:s
     if (!issue) return undefined
 
     if (date === undefined) date = toDay()
-
-    let find = false
-    issue.times = issue.times?.map((elem) => {
-        if (elem.date == date) {
-            elem.time = time
-            find = true
-        }
-
-        return elem
-    })
-
-    if (!find) {
-        issue.times?.push({date: date, time: time})
-    }
 
     issue.curtime = time
 
@@ -216,22 +188,15 @@ export const setIssuesGitHub = (issues_github:IIssueAll[]):IDBIssue[] => {
             title: issue_github.title,
             url: issue_github.html_url,
             started: false,
-            total: 0,
             curtime: 0,
-            times: [],
             labels: labels
         }
 
         const issueDB:IDBIssue|undefined = findIssueByID(issue_github.id, issuesDB)
 
-        if (issueDB !== undefined && issueDB.id !== 0 && issueDB.times) {
-            issueDB.times?.forEach((elem) => {
-                    newIssueDB.times?.push(elem)
-                    newIssueDB.total += elem.time
-                    if (elem.date === toDay()) {
-                        newIssueDB.curtime = elem.time
-                    }
-            })
+        if (issueDB !== undefined && issueDB.id !== 0) {
+
+            newIssueDB.curtime = issueDB.curtime
         }
 
         newIssuesDB.push(newIssueDB)

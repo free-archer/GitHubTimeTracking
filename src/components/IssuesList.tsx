@@ -2,11 +2,13 @@ import React, { useEffect, useState, useContext } from "react";
 import IssueItem from "./IssueItem";
 import { IDBIssue, ILabel } from '../types/dbissues'
 import { Octokit } from "@octokit/core";
-import { setIssuesGitHub } from '../lib/localstore'
+// import { setIssuesGitHub } from '../lib/localstore'
 import { SettingsContext } from "../lib/SettingsContext";
 import Total from "./Total";
 import PomodoroTimer from "./PomodoroTimer";
 import { Filter } from "./Filter";
+
+import { useIssuesStore } from "../stores/dbissues";
 
 const IssuesList: React.FC = () => {
   const settingsContext = useContext(SettingsContext)
@@ -16,6 +18,9 @@ const IssuesList: React.FC = () => {
   const [filterLabels, setFilterLabels] = useState<ILabel[]>([])
 
   settingsContext.setFilterLabels = setFilterLabels
+
+  const issuesState:any = useIssuesStore()
+  const setIssuesGitHub = useIssuesStore((state:IDBIssue[]|any) => state.setDBIssues)
 
   useEffect(() => {
     getIssues()
@@ -55,14 +60,16 @@ const IssuesList: React.FC = () => {
 
     if (issuesData.status === 200) {
 
-      const dbIssues: IDBIssue[] = setIssuesGitHub(issuesData.data)
+      setIssuesGitHub(issuesData.data)
+
+      const dbIssues = issuesState.issuesDB
 
       setIssues(state => dbIssues)
       setFiltredIssues(state => dbIssues)
       setFilterLabels([])
 
       let sum = 0
-      dbIssues.forEach(issue => sum += issue.curtime)
+      // dbIssues.forEach(issue => sum += issue.curtime)
 
       setTotal(sum)
     }
@@ -109,9 +116,7 @@ const IssuesList: React.FC = () => {
               id={issue.id}
               title={issue.title}
               url={issue.url}
-              times={issue.times}
               started={issue.started}
-              total={issue.total}
               curtime={issue.curtime}
               labels={issue.labels}
             />
