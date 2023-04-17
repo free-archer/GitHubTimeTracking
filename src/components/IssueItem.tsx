@@ -1,8 +1,10 @@
 import React, { useEffect, useState, useContext } from "react";
 import { IDBIssue, ILabel } from "../types/dbissues";
-import { setIssueTimeDB } from '../lib/localstore'
+// import { setIssueTimeDB } from '../lib/localstore'
 import { SettingsContext } from "../lib/SettingsContext";
 import { labelColor } from '../lib/componentHelpers'
+
+import { useIssuesStore } from "../stores/dbissues";
 
 const editImg = require('../lib/img/Pencil-icon16.png')
 const saveImg = require('../lib/img/Save-icon16.png')
@@ -15,6 +17,9 @@ const IssueItem: React.FC<IDBIssue> = (props) => {
   const [editMode, setEditMode] = useState<boolean>(false)
 
   const settingsContext = useContext(SettingsContext)
+
+  const issuesState:any = useIssuesStore()
+  const setIssueTimeDB = useIssuesStore((state:IDBIssue[]|any) => state.setIssueTimeDB)
 
   // useEffect(() => {
 

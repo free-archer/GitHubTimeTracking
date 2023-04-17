@@ -1,10 +1,11 @@
 import { create } from 'zustand'
 import { IDBIssue, ILabel } from '../types/dbissues'
-import { IIssueAll } from '../types/issues'
+import { IIssue, IIssueAll } from '../types/issues'
 
 export const useIssuesStore = create((set) => ({
     issuesDB: [],
-    setDBIssues: (issues_github:IIssueAll[]) => set((state:IDBIssue[]) => ({issuesDB:setIssuesGitHub(state, issues_github)}))
+    setDBIssues: (issues_github:IIssueAll[]) => set((state:IDBIssue[]) => ({issuesDB: setIssuesGitHub(state, issues_github)})),
+    setIssueTimeDB: (id:number, started:boolean, time:number) => set((state:IDBIssue[]) => ({issuesDB: setIssueTimeDB(state, id, started, time)}))
 }))
 // export const useBearStore = create((set) => ({
 //   bears: 0,
@@ -49,7 +50,7 @@ export const setIssuesGitHub = (state:any, issues_github:IIssueAll[]):IDBIssue[]
 
         // const issueDB:IDBIssue|undefined = findIssueByID(issue_github.id, issuesDB)
         if (state.issuesDB !== undefined) {
-            const issueDB:IDBIssue|undefined = state.issuesDB.find((value:IDBIssue ) => (value.id === issue_github.id))
+            const issueDB:IDBIssue|undefined = state.issuesDB.find((value:IDBIssue) => (value.id === issue_github.id))
 
             if (issueDB !== undefined && issueDB.id !== 0) {
 
@@ -62,11 +63,13 @@ export const setIssuesGitHub = (state:any, issues_github:IIssueAll[]):IDBIssue[]
     return newIssuesDB
 }
 
-const findIssueByID = (id:number, issues:IDBIssue[]):IDBIssue|undefined => {
-    if (!issues || issues.length == 0) {
-        return undefined
-    }
-    const issue:IDBIssue|undefined = issues.find((value) => (value.id === id))
+export const setIssueTimeDB = (state:any, id: number, started:boolean, time:number):void => {
+    const issueDB:IDBIssue|undefined = state.issuesDB.find((value:IDBIssue) => (value.id === id))
 
-    return issue
+    if (issueDB !== undefined && issueDB.id !== 0) {
+        issueDB.curtime = time
+        issueDB.started = started
+    }
+
+    return state.issuesDB
 }

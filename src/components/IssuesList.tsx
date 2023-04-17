@@ -12,7 +12,7 @@ import { useIssuesStore } from "../stores/dbissues";
 
 const IssuesList: React.FC = () => {
   const settingsContext = useContext(SettingsContext)
-  const [issues, setIssues] = useState<Array<IDBIssue>>([])
+  // const [issues, setIssues] = useState<Array<IDBIssue>>([])
   const [filtredIssues, setFiltredIssues] = useState<Array<IDBIssue>>([])
   const [total, setTotal] = useState<number>(0)
   const [filterLabels, setFilterLabels] = useState<ILabel[]>([])
@@ -32,12 +32,12 @@ const IssuesList: React.FC = () => {
       if (filterLabels.length) {
 
         const labels = filterLabels.map(el => el.id)
-
+        const issues:IDBIssue[] = issuesState.issuesDB
         setFiltredIssues(state => (issues.filter((dbissue) => labels.every(id => dbissue.labels.some(dbl => dbl.id === id)))))
 
       } else {
 
-        setFiltredIssues(state => issues)
+        setFiltredIssues(state => issuesState.issuesDB)
 
       }
     }, [filterLabels]
@@ -64,7 +64,7 @@ const IssuesList: React.FC = () => {
 
       const dbIssues = issuesState.issuesDB
 
-      setIssues(state => dbIssues)
+      // setIssues(state => dbIssues)
       setFiltredIssues(state => dbIssues)
       setFilterLabels([])
 
