@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useContext } from "react";
 import { IDBIssue, ILabel } from "../types/dbissues";
-import { setIssueTimeDB } from '../lib/localstore'
 import { SettingsContext } from "../lib/SettingsContext";
 import { labelColor } from '../lib/componentHelpers'
+
+import { useIssuesStore } from "../stores/dbissues";
 
 const editImg = require('../lib/img/Pencil-icon16.png')
 const saveImg = require('../lib/img/Save-icon16.png')
@@ -16,10 +17,8 @@ const IssueItem: React.FC<IDBIssue> = (props) => {
 
   const settingsContext = useContext(SettingsContext)
 
-  // useEffect(() => {
-
-  //   setTime(state => (() =>( || 0))
-  // })
+  const issuesState:any = useIssuesStore()
+  const setIssueTimeDB = useIssuesStore((state:IDBIssue[]|any) => state.setIssueTimeDB)
 
   useEffect(() => {
     if (time !== 0) {
@@ -58,7 +57,6 @@ const IssueItem: React.FC<IDBIssue> = (props) => {
 
     return interval
   }
-
 
   const parseTime = (time: number): string => {
     const hours = Math.trunc(time / 3600)
