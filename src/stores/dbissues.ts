@@ -26,7 +26,7 @@ export const setIssuesGitHub = (state:any, issues_github:IIssueAll[]):IDBIssue[]
             color: elem.color
         }))
 
-        const matches = issue_github.title.match(/(^[A-Z]+)-[0-9]+\s/)
+        const matches = issue_github.title.match(/(^[А-Я]+-[0-9]+)/)
         if (matches) {
             const project_name = matches[1]
 
