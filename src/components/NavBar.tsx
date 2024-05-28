@@ -11,7 +11,8 @@ const NavBar:React.FC  = () => {
 
     const githubUrlHome = `https://github.com/${settingsContext.settings.username}/`
     const githubUrl = `https://github.com/${settingsContext.settings.username}/${settingsContext.settings.reponame}/issues`
-
+    const githubMain = `https://github.com/${settingsContext.settings.username}/${settingsContext.settings.reponame}`
+    
     return (
         <>    
         <nav className="container-xl flex flex-row bg-[#3B8BEA] text-[#c3dbf5] text-xl p-5 w-full h-20 items-center">
@@ -21,7 +22,7 @@ const NavBar:React.FC  = () => {
             </a>
 
             <Link to={"/"} className="flex ml-10 hover:text-[#e6e3d4] hover:border-b-2 hover:border-solid hover:border-[#e6e3d4] active:border-b-2 active:border-solid active:border-blue-300 ">
-                GitHub Time Tracking
+                Home
             </Link>
 
             <a href={githubUrl+"/new/choose"} target="_blank" className="flex ml-10 hover:text-[#e6e3d4] hover:border-b-2 hover:border-solid hover:border-[#e6e3d4] active:border-b-2 active:border-solid active:border-blue-300">
@@ -34,7 +35,11 @@ const NavBar:React.FC  = () => {
 
             <a href={githubUrl+"?q=is%3Aclosed"} target="_blank" className="flex ml-10 hover:text-[#e6e3d4] hover:border-b-2 hover:border-solid hover:border-[#e6e3d4] active:border-b-2 active:border-solid active:border-blue-300">
                 Closes issues
-            </a>                                       
+            </a>   
+
+            <a href={githubMain} target="_blank" className="flex ml-10 hover:text-[#e6e3d4] hover:border-b-2 hover:border-solid hover:border-[#e6e3d4] active:border-b-2 active:border-solid active:border-blue-300">
+                Files
+            </a>                                                  
 
             <div className="grow"></div>
 
