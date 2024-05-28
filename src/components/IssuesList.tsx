@@ -59,25 +59,25 @@ const IssuesList: React.FC = () => {
   }
 
   useEffect(() => {
-    //let  filter_issue = filterIssue()
-    let filter_issue = sortIssue(issues)
+    const  filter_issue = filterIssue()
 
     setFiltredIssues(state => filter_issue)
 
-    console.log(sorted)
+    }, [filterLabels]
+  )  
 
-      // if (filterLabels.length) {
+  useEffect(() => {
+// debugger
+    if (sorted) {
 
-      //   const labels = filterLabels.map(el => el.id)
+      const filter_issue = sortIssue(issues)
+      setFiltredIssues(state => filter_issue)
 
-      //   setFiltredIssues(state => (issues.filter((dbissue) => labels.every(id => dbissue.labels.some(dbl => dbl.id === id)))))
+    } else {
+      setFiltredIssues(state => issues)
+    }
 
-      // } else {
-
-      //   setFiltredIssues(state => issues)
-
-      // }
-    }, [filterLabels, sorted]
+    }, [sorted]
   )
 
   const getIssues = async () => {
@@ -151,7 +151,7 @@ const IssuesList: React.FC = () => {
 
             <div className="flex">
               <span className="mr-2 text-strong">Sort by time:</span> 
-              <input className="" type="checkbox" onChange={e => setSorted(e.target.checked)}/>
+              <input className="" type="checkbox" onChange={e => setSorted(state => e.target.checked)}/>
             </div>           
 
           </div>
