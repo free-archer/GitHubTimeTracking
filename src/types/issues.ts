@@ -89,22 +89,22 @@ export interface IIssueAll {
     number: number;
     state: string;
     title: string;
-    body: string;
+    body?: string | null;
     user: IUser;
     labels: ILabel[];
-    assignee: IAssignee;
+    assignee?: IAssignee | null;
     assignees: IAssignee[];
-    milestone: IMilestone;
+    milestone?: IMilestone | null;
     locked: boolean;
     active_lock_reason: string;
     comments: number;
-    pull_request: PullRequest;
-    closed_at?: any;
-    created_at: Date;
-    updated_at: Date;
-    closed_by: IUser;
+    pull_request?: PullRequest;
+    closed_at?: string | null;
+    created_at: string;
+    updated_at: string;
+    closed_by?: IUser;
     author_association: string;
-    state_reason: string;
+    state_reason?: string | null;
 }
 
 export interface IIssue {

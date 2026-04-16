@@ -28,3 +28,5 @@ Cargo.lock
 src-tauri/Cargo.toml
 src/.env
 
+PRD/
+

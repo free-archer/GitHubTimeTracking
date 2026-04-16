@@ -31,9 +31,15 @@ npm start
 
 ### Settings
 
-Firstly get GitHub key for this app.
+Firstly create a Personal Access Token (PAT) for this app.
 
-See https://docs.github.com/en/developers/apps/building-github-apps/authenticating-with-github-apps
+Recommended option is Fine-grained PAT:
+- Repository access: select your target repository.
+- Repository permissions -> Issues: Read.
+
+See documentation:
+- https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens
+- https://docs.github.com/en/rest/authentication/permissions-required-for-fine-grained-personal-access-tokens
 
 Next: Go to **Setting** page and fill in a username and a repository name.
 
