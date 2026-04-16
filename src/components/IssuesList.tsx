@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useCallback, useEffect, useState, useContext } from "react";
 import IssueItem from "./IssueItem";
 import { IDBIssue, ILabel } from '../types/dbissues'
 import { Octokit } from "@octokit/core";
@@ -28,7 +28,12 @@ const getGitHubErrorMessage = (error: unknown): string => {
   }
 
   if (status === 404) {
-    return 'Репозиторий не найден. Проверьте owner/repository.'
+    return (
+      'Репозиторий недоступен (HTTP 404). Проверьте владельца и имя репозитория. ' +
+      'Если репозиторий приватный, у токена должен быть доступ к нему ' +
+      '(classic: scope «repo»; fine-grained: выбранный репозиторий и право Issues: Read). ' +
+      'У приватных репозиториев без доступа GitHub тоже отвечает 404.'
+    )
   }
 
   return 'Не удалось загрузить issues из GitHub.'
@@ -48,28 +53,7 @@ const IssuesList: React.FC = () => {
   const issuesState:any = useIssuesStore()
   const setIssuesGitHub = useIssuesStore((state:IDBIssue[]|any) => state.setDBIssues)
 
-  useEffect(() => {
-    getIssues()
-  }, []
-  )
-
-  useEffect(() => {
-
-      if (filterLabels.length) {
-
-        const labels = filterLabels.map(el => el.id)
-        const issues:IDBIssue[] = issuesState.issuesDB
-        setFiltredIssues(state => (issues.filter((dbissue) => labels.every(id => dbissue.labels.some(dbl => dbl.id === id)))))
-
-      } else {
-
-        setFiltredIssues(state => issuesState.issuesDB)
-
-      }
-    }, [filterLabels, issuesState.issuesDB]
-  )
-
-  const getIssues = async () => {
+  const getIssues = useCallback(async () => {
     const gitHubKey: string = settingsContext.settings.key
     const repositoryName: string = settingsContext.settings.reponame
     const userName: string = settingsContext.settings.username
@@ -127,7 +111,32 @@ const IssuesList: React.FC = () => {
     } finally {
       setIsLoading(false)
     }
-  }
+  }, [
+    settingsContext.settings.key,
+    settingsContext.settings.reponame,
+    settingsContext.settings.username,
+    setIssuesGitHub,
+  ])
+
+  useEffect(() => {
+    void getIssues()
+  }, [getIssues])
+
+  useEffect(() => {
+
+      if (filterLabels.length) {
+
+        const labels = filterLabels.map(el => el.id)
+        const issues:IDBIssue[] = issuesState.issuesDB
+        setFiltredIssues(state => (issues.filter((dbissue) => labels.every(id => dbissue.labels.some(dbl => dbl.id === id)))))
+
+      } else {
+
+        setFiltredIssues(state => issuesState.issuesDB)
+
+      }
+    }, [filterLabels, issuesState.issuesDB]
+  )
 
   return (
     <div className="flex w-full items-start justify-center">
